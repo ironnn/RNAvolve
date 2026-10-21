@@ -109,7 +109,8 @@ def plot(
             family="monospace",
             fontsize=6.5,
         )
-        axis.set_title(model, fontweight="bold")
+        display_name = panel.get("display_names", {}).get(model, model)
+        axis.set_title(display_name, fontweight="bold")
         axis.set_xlabel("Log10(TE)")
         axis.set_ylabel("Density")
         axis.spines[["top", "right"]].set_visible(False)

@@ -6,8 +6,9 @@ The public model name is **RNAvolve**. The Python distribution and package are
 
 The change covers public imports, entry points, configuration keys, figure labels,
 benchmark model labels and prediction-column names, source-table filenames,
-documentation, and CI. The local checkout directory and Git remote are not renamed
-by this change. Independent historical experiment directories are outside scope.
+documentation, and CI. The local checkout directory is unchanged; the Git remote
+now points to `ironnn/RNAvolve`. Independent historical experiment directories are
+outside scope.
 
 ## Native checkpoints
 
@@ -27,8 +28,8 @@ have new hashes, recorded in the refreshed checksum files and
 Original binaries and literal source-location records are backed up outside this
 checkout. Public provenance uses run identifiers and logical private-source names
 instead of private checkout names. The smoke-data builder takes an explicit
-`--pretrain-root`; it has no historical checkout-name default. Git history, the
-Git remote, and independent experiment directories are not rewritten by this work.
+`--pretrain-root`; it has no historical checkout-name default. Git history and
+independent experiment directories are not rewritten by this work.
 Private archived checkpoints must be migrated separately before optional reruns.
 
 Import the native package as follows:
@@ -41,9 +42,10 @@ predictor = RNAvolvePredictor("final_tdc", device="cuda:0")
 
 ## Validation performed
 
-- Final release scan: 634 public files and all seven decompressed checkpoint
-  archives have zero prior-brand matches (case-insensitive), including serialized
-  configuration metadata and state-dict keys. The 18-test local suite passes.
+- The initial text/binary scan covered 634 public files and all seven decompressed
+  checkpoint archives, including serialized configuration metadata and state-dict
+  keys. This scan does not detect labels rendered as PDF outlines or image pixels;
+  the figure-export follow-up below closes the observed Fig. 2 omission.
 - Compared three real human smoke transcripts before/after renaming for `w0`,
   `w1`, `w2`, `final_tdc`, and `hl_new`: exactly identical predictions.
 - Compared a real-transcript backbone embedding and three teacher-feature rows:
@@ -64,6 +66,15 @@ and an NVIDIA GPU. `tests/test_renaming.py` guards native package names and load
 the CPU CI job.
 
 ## Plotting and optional workflows
+
+The 2026-10-22 visual follow-up found that the archived Fig. 2 PDF retained the
+prior backbone label even though its filename and plotting source were renamed.
+It has now been regenerated from the checked frozen source tables, with all three
+Panel B labels reading `RNAvolve backbone`. The standalone Fig. 3B title now reads
+`RNAvolve`; the `0412` run identifier remains in data keys for traceability.
+The generated Fig. 2 and Fig. 3B PDFs retain searchable text. Regression tests
+require their current display labels and reject prior-brand labels; CI installs
+Poppler to run these checks. Rendered exports are also inspected visually.
 
 The Fig. 3B standalone redraw now accepts the shipped merged prediction table and
 uses the frozen full-precision annotations from its configuration. Compact plotting

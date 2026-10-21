@@ -2,6 +2,9 @@
 
 from collections import OrderedDict
 from pathlib import Path
+import re
+import shutil
+import subprocess
 import sys
 
 import pytest
@@ -41,3 +44,20 @@ def test_current_package_and_branding():
     assert packages == {"rnavolve"}
     assert 'name = "rnavolve"' in (ROOT / "pyproject.toml").read_text()
     assert (ROOT / "README.md").read_text().startswith("# RNAvolve\n")
+
+
+@pytest.mark.parametrize("relative_path, label, count", [
+    ("fig2/RNAvolve_Fig2_Combined_20260707.pdf", "RNAvolve backbone", 3),
+    ("fig3/fig3b/fig3b_cross_species.pdf", "RNAvolve", 1),
+])
+def test_exported_figure_branding(relative_path, label, count):
+    converter = shutil.which("pdftotext")
+    if converter is None:
+        pytest.skip("PDF branding checks require Poppler pdftotext")
+    path = ROOT / "figures/figure_subplot_check" / relative_path
+    text = subprocess.check_output([converter, "-raw", str(path), "-"], text=True)
+    # Rotated tick labels can be extracted as one character per line.
+    normalized = "".join(text.split())
+    assert normalized.count("".join(label.split())) == count
+    assert not re.search("inva" + "rna", normalized, re.IGNORECASE)
+    assert "RNAvolve0412" not in normalized

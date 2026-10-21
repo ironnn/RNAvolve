@@ -4,8 +4,9 @@ This directory contains one submission-facing redraw for each figure check. The
 files are tied to the current paper data, rather than to superseded exploratory
 plots.
 
-- `fig2/` contains the final combined PDF copied from the designated submission
-  figure package.
+- `fig2/` contains the combined PDF regenerated from the frozen source tables with
+  `python figures/fig2/reproduce.py`, including the current RNAvolve labels. The
+  filename retains the original submission-package date to keep existing paths stable.
 - `fig3/` contains the checked-data combined redraw plus the current ablation,
   no-fly cross-species panel, and MPRA panel G checks. Its companion source
   tables are `assets/manuscript_figures/full/fig3_current_nm/`; the combined

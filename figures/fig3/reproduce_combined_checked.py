@@ -80,8 +80,8 @@ CLADE_COLORS = {
     'Unknown':       'gray',
 }
 CLADE_ORDER = ['Human', 'Mammals', 'Vertebrates', 'Invertebrates', 'Fungi']
-INV_RED  = '#DC2626'
-INV_GRAY = '#9CA3AF'
+RNAVOLVE_RED  = '#DC2626'
+RNAVOLVE_GRAY = '#9CA3AF'
 
 # =============================================================================
 # === F3A: TE distribution data ===
@@ -186,7 +186,7 @@ print(f"  Checked MPRA rows: {len(results_f)}")
 checked_f = pd.read_csv(os.path.join(DATA_DIR, 'F3F_heldout_human_TE_prediction_R2.csv'))
 G_labels = checked_f['model'].tolist()
 G_scores = checked_f['heldout_human_te_prediction_r2'].tolist()
-G_colors = [INV_RED if name == 'RNAvolve' else ('#9CA3AF' if name == 'RiboNN' else '#DDDDDF')
+G_colors = [RNAVOLVE_RED if name == 'RNAvolve' else ('#9CA3AF' if name == 'RiboNN' else '#DDDDDF')
             for name in G_labels]
 
 # =============================================================================
@@ -366,7 +366,7 @@ if con_data is not None:
     msc  = [cons[i] for i in muts]
     ax_con.fill_between(pos, cons, 0, color='#E5E7EB', alpha=0.8, edgecolor='none')
     ax_con.plot(pos, cons, color='#6B7280', linewidth=1.5, label='Conservation Score (PhastCons)')
-    ax_con.scatter(muts, msc, color=INV_RED, edgecolor='white',
+    ax_con.scatter(muts, msc, color=RNAVOLVE_RED, edgecolor='white',
                    linewidth=0.8, s=50, zorder=5, label='Dynamically Sampled Mutation')
     ax_con.set_xlabel("Sequence Position in 5' UTR (bp)", fontsize=10, fontweight='bold')
     ax_con.set_ylabel('Conservation\nProbability', fontsize=10, fontweight='bold')
@@ -471,7 +471,7 @@ E_models = ['human', 'human_mouse', 'rand_mut', 'evol_mut', 'taylor', 'final']
 E_labels_dot = ['Human data', 'Mouse data', 'Random aug.', 'Evolution-guided aug.', 'Taylor correction', 'TDC soft label']
 checked_e = pd.read_csv(os.path.join(DATA_DIR, 'F3E_ablation_plot_data.csv')).set_index('configuration').loc[E_models]
 E_val_r2 = checked_e['test_r2_plotted'].tolist()
-E_c = INV_GRAY
+E_c = RNAVOLVE_GRAY
 
 x_e = np.arange(len(E_models))
 ax_ebar.bar(x_e, E_val_r2, width=0.55, color=E_c, edgecolor='white', linewidth=0.5, zorder=3)
@@ -514,7 +514,7 @@ ax_edot.tick_params(left=False)
 # --- Panel F: MPRA mean±SD summary bar ---
 ax_f = fig.add_subplot(row2_gs[2])
 model_order_f = ['UTRLM', 'RiboNN', 'RNAvolve']
-palette_f = {'RNAvolve': INV_RED, 'RiboNN': INV_GRAY, 'UTRLM': '#D1D5DB'}
+palette_f = {'RNAvolve': RNAVOLVE_RED, 'RiboNN': RNAVOLVE_GRAY, 'UTRLM': '#D1D5DB'}
 f_means, f_sds = [], []
 for m in model_order_f:
     vals = results_f[results_f['Model'] == m]['Spearman_R'].dropna()
@@ -764,7 +764,7 @@ def _make_panel_c():
         ax_con_s.fill_between(pos, cons, 0, color='#E5E7EB', alpha=0.8, edgecolor='none')
         ax_con_s.plot(pos, cons, color='#6B7280', linewidth=1.5,
                       label='Conservation Score (PhastCons)')
-        ax_con_s.scatter(muts, msc, color=INV_RED, edgecolor='white',
+        ax_con_s.scatter(muts, msc, color=RNAVOLVE_RED, edgecolor='white',
                          linewidth=0.8, s=50, zorder=5,
                          label='Dynamically Sampled Mutation')
         ax_con_s.set_xlabel("Sequence Position in 5' UTR (bp)", fontsize=10, fontweight='bold')

@@ -2,6 +2,8 @@ figure_data: assets/manuscript_figures/full/fig3_current_nm
 
 panel_b:
   input: F3B_three_model_predictions_merged.csv
+  display_names:
+    RNAvolve0412: RNAvolve
   source_predictions:
     RNAvolve0412: F3B_pred_rnavolve0412.csv
     RiboNN: F3B_pred_ribonn.csv
