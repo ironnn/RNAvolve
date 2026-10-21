@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_OUTPUT = ROOT.parent / "InvaRNA_publication_assets_upload" / "assets" / "manuscript_figures"
+DEFAULT_OUTPUT = ROOT.parent / "RNAvolve_publication_assets_upload" / "assets" / "manuscript_figures"
 README_SOURCE = ROOT / "assets/manuscript_figures/full/README.md"
 
 SOURCES = {

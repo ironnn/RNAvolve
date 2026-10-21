@@ -25,8 +25,8 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-from invarna.models.tokenization import InvaRNATokenizer
-from invarna.training.sampler import mlm_getitem
+from rnavolve.models.tokenization import RNAvolveTokenizer
+from rnavolve.training.sampler import mlm_getitem
 
 
 def sha256(path: Path) -> str:
@@ -96,7 +96,7 @@ def main() -> None:
     args = parser.parse_args()
 
     expected = pd.read_csv(args.manifest).sort_values("batch_order")
-    tokenizer = InvaRNATokenizer(model_max_length=args.max_length)
+    tokenizer = RNAvolveTokenizer(model_max_length=args.max_length)
     expected_indices = expected["dataset_index_zero_based"].astype(int).tolist()
     record_count, records = read_indexed_fasta(args.fasta, set(expected_indices))
 

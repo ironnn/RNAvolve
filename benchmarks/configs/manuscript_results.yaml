@@ -11,11 +11,11 @@ fig3_ablation:
   k80_wt_anchor: 0.739
   final_tdc: 0.751
 fig3_heldout_human:
-  InvaRNA: 0.751
+  RNAvolve: 0.751
   RiboNN: 0.617
   Evo2: 0.730
 fig3_mpra_mean_spearman:
-  InvaRNA: 0.353
+  RNAvolve: 0.353
   RiboNN: 0.260
   UTR-LM: 0.086
 rpfd_final:

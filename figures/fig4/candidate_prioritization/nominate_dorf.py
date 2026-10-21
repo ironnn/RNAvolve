@@ -11,7 +11,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from invarna.interpretability.dorf_scoring import (
+from rnavolve.interpretability.dorf_scoring import (
     compute_median_utr3_rpkm,
     expand_candidate_orfs,
     filter_riboseq_supported_dorfs,

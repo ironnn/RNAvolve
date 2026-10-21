@@ -1,7 +1,7 @@
 # Data and synthetic augmentation
 
 K80 and flow-matching augmentation entry points live in `data_generation/`, with the
-shared implementation in `src/invarna/synthetic/`. Configuration paths are relative
+shared implementation in `src/rnavolve/synthetic/`. Configuration paths are relative
 to the repository root.
 
 ```bash
@@ -15,7 +15,7 @@ written to `assets/training_data/synthetic/generated/` and are ignored by Git.
 
 The complete FM pools remain local under `assets/training_data/synthetic/flow_matching/` and are ignored by
 Git. Small real-row excerpts are in `assets/smoke/synthetic/`. Matched random controls
-are available through `invarna.synthetic.matched_random.mutate_matched`.
+are available through `rnavolve.synthetic.matched_random.mutate_matched`.
 
 ## GitHub data policy
 

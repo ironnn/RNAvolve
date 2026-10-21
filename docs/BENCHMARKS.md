@@ -1,14 +1,14 @@
 # Benchmarks
 
 The package provides reusable human-TE inference, grouped multi-species metrics, MPRA
-summaries, and representation-transfer metric utilities under `invarna/evaluation/`.
+summaries, and representation-transfer metric utilities under `rnavolve/evaluation/`.
 The manuscript representation-transfer probes used LightGBM, not ridge regression.
 The recovered task-specific probe parameters, candidate-selection rule, split units,
 and random seed are recorded in `benchmarks/configs/fig2.yaml` and
 `benchmarks/configs/representation_transfer.yaml`.
 
 The Git checkout contains the frozen Fig. 2--5 plotting tables, the human WT
-validation/test splits, and seven compressed InvaRNA-native checkpoints. It does
+validation/test splits, and seven compressed RNAvolve-native checkpoints. It does
 not contain the full benchmark input and prediction archives, representation
 embeddings, external baseline weights, or the optional ablation checkpoints.
 Commands below that need those omitted files are explicitly marked; the main
@@ -32,7 +32,7 @@ approved backbone comparisons recorded in the Fig. 2 config.
 
 External-model benchmark code is under `external_models/`. Exact training tables,
 external baseline weights, and their selected fine-tuned checkpoints are not in Git;
-the seven included native InvaRNA checkpoints are a separate inventory.
+the seven included native RNAvolve checkpoints are a separate inventory.
 See `benchmarks/configs/external_llm_te.yaml` and `external_models/README.md` for
 the input and download records.
 
@@ -66,7 +66,7 @@ prediction tables and larger training inputs are not distributed in this release
 
 ## Fig. 3b cross-species benchmark
 
-The current paper shows five RPFdb species for InvaRNA, RiboNN, and UTR-LM. The
+The current paper shows five RPFdb species for RNAvolve, RiboNN, and UTR-LM. The
 displayed Fig. 3B summary and merged plotting table are in
 `assets/manuscript_figures/full/fig3_current_nm/`, so the main Fig. 3 redraw works
 from Git. The three separate `F3B_pred_*.csv` files required to recompute all 15
@@ -106,7 +106,7 @@ legacy-checkpoint loading. It also validates per-run and summary tables under
 
 ## Fig. 3g external MPRA
 
-The current `nm.pdf` Fig. 3g bar (unchanged from July 17) compares UTR-LM, RiboNN, and InvaRNA on ten Optimus
+The current `nm.pdf` Fig. 3g bar (unchanged from July 17) compares UTR-LM, RiboNN, and RNAvolve on ten Optimus
 5-Prime MPRA libraries. The historical calculation uses 3,000 rows per library,
 Spearman correlation within each library, then the arithmetic mean and sample
 standard deviation (`ddof=1`) across the ten correlations. The exact parameter and
@@ -125,7 +125,7 @@ python figures/fig3/fig3g_mpra.py
 
 This checks all source hashes and writes per-library metrics, the three-bar summary,
 PNG, and PDF under `results/fig3_panel_g/`. Expected mean +/- SD values are UTR-LM
-0.085538806 +/- 0.119267787, RiboNN 0.259656219 +/- 0.094617926, and InvaRNA
+0.085538806 +/- 0.119267787, RiboNN 0.259656219 +/- 0.094617926, and RNAvolve
 0.353215975 +/- 0.093279511.
 
 The canonical RiboNN value was computed from the preserved 100,000-row-per-library
@@ -140,8 +140,8 @@ input table, the relevant external weights, and their model-specific dependencie
 After supplying these, the rerun commands are:
 
 ```bash
-python benchmarks/mpra/predict.py --model invarna \
-  --output results/fig3_panel_g/pred_invarna_rerun.csv
+python benchmarks/mpra/predict.py --model rnavolve \
+  --output results/fig3_panel_g/pred_rnavolve_rerun.csv
 python benchmarks/mpra/predict.py --model ribonn \
   --output results/fig3_panel_g/pred_ribonn_rerun.csv
 python benchmarks/mpra/predict.py --model utrlm \
@@ -149,7 +149,7 @@ python benchmarks/mpra/predict.py --model utrlm \
 
 python figures/fig3/fig3g_mpra.py --skip-hash-check \
   --expected-tolerance 5e-4 \
-  --invarna-predictions results/fig3_panel_g/pred_invarna_rerun.csv \
+  --rnavolve-predictions results/fig3_panel_g/pred_rnavolve_rerun.csv \
   --ribonn-predictions results/fig3_panel_g/pred_ribonn_rerun.csv \
   --utrlm-predictions results/fig3_panel_g/pred_utrlm_rerun.csv
 ```
@@ -162,6 +162,6 @@ point differences can occur across CUDA runtimes.
 
 ```bash
 python benchmarks/evaluate.py --input PREDICTIONS.csv \
-  --truth te_ratio --prediction pred_InvaRNA0412 --group species \
+  --truth te_ratio --prediction pred_RNAvolve0412 --group species \
   --truth-transform log10 --output METRICS.csv
 ```

@@ -24,7 +24,7 @@ Per-backbone conda env (see README):
   lucaone          -> lucaone
   orthrus          -> caduceus_env         (mamba_ssm)
   evo2             -> mamballm/lucaone      (vortex)  [embedding only for now]
-  invarna          -> mamballm              (InvaRNA Caduceus; embedding only)
+  rnavolve          -> mamballm              (RNAvolve Caduceus; embedding only)
 """
 import os
 import sys
@@ -38,14 +38,14 @@ BASELINES_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOT = BASELINES_ROOT.parent
 EXTERNAL_ASSET_ROOT = Path(
     os.environ.get(
-        "INVARNA_EXTERNAL_ASSET_ROOT",
+        "RNAVOLVE_EXTERNAL_ASSET_ROOT",
         REPO_ROOT / "assets" / "checkpoints" / "external" / "pretrained",
     )
 )
 MODEL_ROOT = EXTERNAL_ASSET_ROOT / "models"
 
-# InvaRNA repo is a SIBLING of llm_models/ (not under models/); env-overridable.
-INVARNA_ROOT = os.environ.get("INVARNA_ROOT", str(REPO_ROOT))
+# RNAvolve repo is a SIBLING of llm_models/ (not under models/); env-overridable.
+RNAVOLVE_ROOT = os.environ.get("RNAVOLVE_ROOT", str(REPO_ROOT))
 
 
 @dataclass
@@ -342,31 +342,26 @@ def _evo2_forward(backbone, inputs):
     return emb[EVO2_EMBED_LAYER]  # (B, L, H)
 
 
-# ───────────────────────────── InvaRNA (non-HF Caduceus/Mamba) ───────────────
-def _invarna_paths(invarna_root):
+# ───────────────────────────── RNAvolve (non-HF Caduceus/Mamba) ───────────────
+def _rnavolve_paths(rnavolve_root):
     """Idempotently put repo root (for `import src.utils`) and src/ (for
     `import trainmodule`, `from backbone.tokenization import ...`) on sys.path,
     with src/ ending at path[0]."""
-    for p in (str(Path(invarna_root)), str(Path(invarna_root) / "src")):
+    for p in (str(Path(rnavolve_root)), str(Path(rnavolve_root) / "src")):
         if p in sys.path:
             sys.path.remove(p)
         sys.path.insert(0, p)
 
 
-def _invarna_load(invarna_root):
+def _rnavolve_load(rnavolve_root):
     def _f(device="cuda:0", dtype=None):
-        _invarna_paths(invarna_root)
-        from omegaconf import OmegaConf
-        from trainmodule import SequenceLightningModule
-        cfg = OmegaConf.load(os.path.join(invarna_root, "config", "backbone.yaml"))
-        model = SequenceLightningModule(config=cfg)
-        sd = torch.load(
-            os.path.join(invarna_root, "checkpoints", "backbone",
-                         "model_weights0718step13500.pt"),
-            map_location="cpu", weights_only=False,
+        _rnavolve_paths(rnavolve_root)
+        from rnavolve.evaluation.embedding import build_backbone
+        backbone = build_backbone(
+            os.path.join(rnavolve_root, "backbone", "configs", "mamba_motif_moe.yaml"),
+            os.path.join(rnavolve_root, "assets", "checkpoints", "backbone", "pretrained_step13500.pt"),
+            device,
         )
-        model.model.load_state_dict(sd)            # strict; matches reference recipe
-        backbone = model.model.invaRNA             # Caduceus base encoder (no LM head)
         backbone.config.return_dict = True
         if dtype is not None:
             backbone = backbone.to(dtype)
@@ -374,15 +369,15 @@ def _invarna_load(invarna_root):
     return _f
 
 
-def _invarna_tok(invarna_root):
+def _rnavolve_tok(rnavolve_root):
     def _f():
-        _invarna_paths(invarna_root)
-        from backbone.tokenization import InvaRNATokenizer
-        return InvaRNATokenizer(model_max_length=10000)
+        _rnavolve_paths(rnavolve_root)
+        from rnavolve.models.tokenization import RNAvolveTokenizer
+        return RNAvolveTokenizer(model_max_length=10000)
     return _f
 
 
-def _invarna_encode(tokenizer, seqs, max_len):
+def _rnavolve_encode(tokenizer, seqs, max_len):
     """DNA alphabet (A,C,G,T,N). U->T so RNA input isn't mapped to UNK(6);
     N->pad per the reference recipe; manual right-pad + attention_mask that
     masks ALL pad ids (batch-pad AND N-derived) so masked mean pooling is correct."""
@@ -401,7 +396,7 @@ def _invarna_encode(tokenizer, seqs, max_len):
     return {"input_ids": input_ids, "attention_mask": attention_mask}
 
 
-def _invarna_forward(backbone, inputs):
+def _rnavolve_forward(backbone, inputs):
     # Caduceus.forward does NOT accept attention_mask -> pass input_ids ONLY.
     out = backbone(input_ids=inputs["input_ids"])
     if hasattr(out, "last_hidden_state") and out.last_hidden_state is not None:
@@ -470,14 +465,14 @@ def _spec_evo2():
                               "full-FT via sft/finetune_evo2.py (custom loop, vortex 7-GPU shard, NOT finetune_unified.py)")
 
 
-def _spec_invarna():
-    d = INVARNA_ROOT
-    return BackboneSpec("invarna", d, 512, "mamballm", "rna",
-                        _invarna_load(d), _invarna_tok(d), _invarna_encode, _invarna_forward,
+def _spec_rnavolve():
+    d = RNAVOLVE_ROOT
+    return BackboneSpec("rnavolve", d, 512, "mamballm", "rna",
+                        _rnavolve_load(d), _rnavolve_tok(d), _rnavolve_encode, _rnavolve_forward,
                         supports_full_ft=False, head_mode="shared",
                         notes="non-HF Caduceus/Mamba (rcps d_model 256->512); GPU only "
                               "(mamba_ssm/Triton fused_add_norm); embedding only; U->T, "
-                              "N->pad; repo is sibling of llm_models/ (env INVARNA_ROOT)")
+                              "N->pad; repo is sibling of llm_models/ (env RNAVOLVE_ROOT)")
 
 
 _BUILDERS = {
@@ -488,11 +483,11 @@ _BUILDERS = {
     "lucaone": _spec_lucaone,
     "orthrus": _spec_orthrus,
     "evo2": _spec_evo2,
-    "invarna": _spec_invarna,
+    "rnavolve": _spec_rnavolve,
 }
 
 ALL_KEYS = list(_BUILDERS.keys())
-FULL_FT_KEYS = [k for k in ALL_KEYS if k not in ("evo2", "invarna")]
+FULL_FT_KEYS = [k for k in ALL_KEYS if k not in ("evo2", "rnavolve")]
 
 
 def get_spec(key: str) -> BackboneSpec:

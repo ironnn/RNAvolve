@@ -3,7 +3,7 @@
 """
 evo2 (StripedHyena 7B) full-parameter fine-tuning on the pure_te_bench TE dataset.
 
-Convention follows InvaRNA/train/finetune_stage2.py:
+Convention follows RNAvolve/train/finetune_stage2.py:
   - label = mean_te (regression), loss = MSELoss
   - EVERY epoch: run inference on BOTH val and test, compute R2 with
     sklearn.metrics.r2_score, and dump predictions to

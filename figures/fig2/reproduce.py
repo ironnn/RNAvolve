@@ -93,18 +93,18 @@ def validate(tables: dict[str, pd.DataFrame], config: dict, source_dir: Path) ->
         "mrna_half_life": tables["half_life"],
         "expression_level": tables["expression"],
     }
-    invarna_values = {}
+    rnavolve_values = {}
     for task, frame in b_tables.items():
         if not frame["test_r2"].is_monotonic_decreasing:
             raise RuntimeError(f"Fig. 2B {task} is not sorted by test R2")
-        row = frame.loc[frame["Model"].eq("InvaRNA backbone")]
+        row = frame.loc[frame["Model"].eq("RNAvolve backbone")]
         if len(row) != 1:
-            raise RuntimeError(f"Fig. 2B {task} lacks one InvaRNA backbone row")
+            raise RuntimeError(f"Fig. 2B {task} lacks one RNAvolve backbone row")
         observed = float(row.iloc[0]["test_r2"])
-        expected = float(config["f2b"]["invarna_test_r2"][task])
+        expected = float(config["f2b"]["rnavolve_test_r2"][task])
         if abs(observed - expected) > metric_tolerance:
             raise RuntimeError(f"Fig. 2B {task} R2 mismatch: {observed}")
-        invarna_values[task] = observed
+        rnavolve_values[task] = observed
     if b_tables["mean_ribosome_load"]["model"].eq("codonbert").any():
         raise RuntimeError("Fig. 2B MRL archive unexpectedly contains excluded CodonBERT")
 
@@ -149,7 +149,7 @@ def validate(tables: dict[str, pd.DataFrame], config: dict, source_dir: Path) ->
         "f2a_centroid_spearman_pvalue": float(pvalue),
         "f2a_centroid_spearman_rho": float(rho),
         "f2a_species_counts": counts,
-        "f2b_invarna_test_r2": invarna_values,
+        "f2b_rnavolve_test_r2": rnavolve_values,
         "f2c_position_probability_max_abs_error": probability_error,
         "f2c_region_probability_max_abs_error": region_error,
         "f2c_rolling_max_abs_error": rolling_error,
@@ -284,8 +284,8 @@ def render(tables: dict[str, pd.DataFrame], output_dir: Path, config: dict) -> N
     ]
     for index, (frame, title) in enumerate(benchmark_panels):
         axis = figure.add_subplot(benchmark_grid[index])
-        is_invarna = frame["is_invarna_backbone"].astype(str).str.lower().eq("true")
-        colors = np.where(is_invarna, "#E64B35", "#808183")
+        is_rnavolve = frame["is_rnavolve_backbone"].astype(str).str.lower().eq("true")
+        colors = np.where(is_rnavolve, "#E64B35", "#808183")
         axis.bar(frame["Model"], frame["test_r2"], color=colors, edgecolor="black", linewidth=0.8, width=0.7)
         axis.set_title(title, fontsize=11, fontweight="bold", pad=10)
         if index == 0:
@@ -296,9 +296,9 @@ def render(tables: dict[str, pd.DataFrame], output_dir: Path, config: dict) -> N
         axis.tick_params(axis="x", labelrotation=45, labelsize=8)
         for tick in axis.get_xticklabels():
             tick.set_ha("right")
-        invarna_index = frame.index[frame["Model"].eq("InvaRNA backbone")][0]
-        value = float(frame.loc[invarna_index, "test_r2"])
-        axis.text(invarna_index, value + 0.014, f"{value:.2f}", ha="center", fontsize=9, fontweight="bold", color="#E64B35")
+        rnavolve_index = frame.index[frame["Model"].eq("RNAvolve backbone")][0]
+        value = float(frame.loc[rnavolve_index, "test_r2"])
+        axis.text(rnavolve_index, value + 0.014, f"{value:.2f}", ha="center", fontsize=9, fontweight="bold", color="#E64B35")
 
     bottom = gridspec.GridSpecFromSubplotSpec(
         1, 2, subplot_spec=outer[1], width_ratios=[1.7, 0.9], wspace=0.35
@@ -346,8 +346,8 @@ def render(tables: dict[str, pd.DataFrame], output_dir: Path, config: dict) -> N
         axis_bar.text(index + width / 2, cds[index] + 0.01, f"{cds[index]:.2f}", ha="center", fontsize=9, fontweight="bold")
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    figure.savefig(output_dir / "InvaRNA_Fig2_Combined.pdf", bbox_inches="tight")
-    figure.savefig(output_dir / "InvaRNA_Fig2_Combined.png", dpi=300, bbox_inches="tight")
+    figure.savefig(output_dir / "RNAvolve_Fig2_Combined.pdf", bbox_inches="tight")
+    figure.savefig(output_dir / "RNAvolve_Fig2_Combined.png", dpi=300, bbox_inches="tight")
     plt.close(figure)
 
 
@@ -378,7 +378,7 @@ def main() -> int:
         f"F2C transcripts={summary['f2c_transcripts']}"
     )
     if not args.check_only:
-        print(f"saved {args.output_dir / 'InvaRNA_Fig2_Combined.pdf'}")
+        print(f"saved {args.output_dir / 'RNAvolve_Fig2_Combined.pdf'}")
     return 0
 
 

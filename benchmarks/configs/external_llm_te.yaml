@@ -60,14 +60,14 @@ models:
     max_len: 100
     checkpoint: assets/checkpoints/external/te_finetuned/utrlm/best.ckpt
     test_r2: 0.1674
-  invarna_human_mouse:
+  rnavolve_human_mouse:
     region: fixed_frame_5utr_cds_3utr
     fixed_frame: [1024, 4096, 3072]
-    checkpoint: assets/checkpoints/external/te_finetuned/invarna_human_mouse/best.ckpt
+    checkpoint: assets/checkpoints/external/te_finetuned/rnavolve_human_mouse/best.ckpt
     test_r2: 0.7061
 
-manuscript_final_invarna:
+manuscript_final_rnavolve:
   note: >-
-    The current manuscript InvaRNA value (0.7508; displayed as 0.751) uses the final synthetic/TDC student,
+    The current manuscript RNAvolve value (0.7508; displayed as 0.751) uses the final synthetic/TDC student,
     not the human+mouse-only checkpoint in this external-model training matrix.
   config: sft/configs/tdc_final.yaml

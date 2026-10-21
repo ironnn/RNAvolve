@@ -48,7 +48,7 @@ def main() -> None:
         "ribonn": 0.6164582193177239,
         "rnafm": 0.3885,
         "utrlm": 0.1674,
-        "invarna_human_mouse": 0.7061,
+        "rnavolve_human_mouse": 0.7061,
     }
     results = []
     failed = False

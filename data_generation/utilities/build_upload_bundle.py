@@ -17,7 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "assets"
-DEFAULT_TARGET = ROOT.parent / "InvaRNA_publication_assets_upload"
+DEFAULT_TARGET = ROOT.parent / "RNAvolve_publication_assets_upload"
 
 EXCLUDED_DIRS = {
     ".git",
@@ -77,7 +77,7 @@ def main() -> int:
     try:
         files, total_bytes = clone_assets(SOURCE, temporary)
         (temporary / "README.md").write_text(
-            "# InvaRNA frozen assets\n\n"
+            "# RNAvolve frozen assets\n\n"
             "Copy or extract the `assets/` directory into the code repository root, "
             "then run `python tests/verify_assets.py`.\n\n"
             "External baseline model weights are intentionally excluded. Their "

@@ -33,7 +33,7 @@ from external_models.common.shared_head import SharedSeqClsHead
 
 def _evo2_dir():
     asset_root = os.environ.get(
-        "INVARNA_EXTERNAL_ASSET_ROOT",
+        "RNAVOLVE_EXTERNAL_ASSET_ROOT",
         os.path.join(REPO_ROOT, "assets", "checkpoints", "external", "pretrained"),
     )
     return os.path.join(asset_root, "models", "evo2-main")

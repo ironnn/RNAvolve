@@ -67,7 +67,7 @@ disjointness, RBH removal, epoch selection, checkpoint identity, and reported RÂ
 
 `privileged_teacher/` closes the local dependency set for the deployed teacher:
 the engineered-feature extractor and production scripts are tracked in
-`invarna/distillation/privileged_teacher_source/`, while the large/licensed tables
+`rnavolve/distillation/privileged_teacher_source/`, while the large/licensed tables
 remain here. `synthetic_generation/anchors/` retains the WT tables required by the
 K80/matched label workflows. These assets are present locally but still need a stable
 anonymous archival URL and redistribution approval before external review.

@@ -4,7 +4,7 @@
 RiboNN full-parameter fine-tuning on the pure_te_bench TE dataset.
 
 Same idea as the UTR-LM / backbone fine-tunes: take the RiboNN INFERENCE weights
-(one nested-CV fold, the same checkpoints used by InvaRNA/inference/infer.py ->
+(one nested-CV fold, the same checkpoints used by RNAvolve/inference/infer.py ->
 deps/ribonn -> RiboNN-1.0.0/models/<run_id>/state_dict.pth), UNFREEZE everything,
 and fine-tune on this dataset's mean_te label.
 

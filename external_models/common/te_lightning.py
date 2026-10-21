@@ -2,7 +2,7 @@
 Shared PyTorch-Lightning core for TE full-parameter fine-tuning of the unified
 backbones (everything except evo2, which uses sft/train_te_evo2.py).
 
-Follows InvaRNA/train/finetune_stage2.py conventions:
+Follows RNAvolve/train/finetune_stage2.py conventions:
   - label = mean_te (regression), loss = MSELoss
   - two val dataloaders: idx 0 = val, idx 1 = test
   - on_validation_epoch_end: all_gather preds/targets across ranks, compute

@@ -37,7 +37,7 @@ included in the standalone plotting tables.
 
 ## RL workflow
 
-The public sequence-scoring objective in `src/invarna/design/reward.py` is:
+The public sequence-scoring objective in `src/rnavolve/design/reward.py` is:
 
 ```text
 R = 0.70 * robust_TE + 0.30 * z_HL

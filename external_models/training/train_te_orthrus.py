@@ -7,7 +7,7 @@ Region : whole mRNA from 5' end, read 5'->3'.
 MaxLen : 10000 nt (Orthrus 6-track one-hot; user-specified cap).
 Env    : caduceus_env
 
-Harness follows InvaRNA/train/finetune_stage2.py:
+Harness follows RNAvolve/train/finetune_stage2.py:
   - PyTorch-Lightning + DDPStrategy(find_unused_parameters=False), precision bf16-mixed
   - label=mean_te, loss=MSELoss; head = native if backbone ships one else shared
   - per-epoch val+test eval: all_gather -> sklearn r2_score -> dump

@@ -6,7 +6,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from invarna.distillation.tdc import main
+from rnavolve.distillation.tdc import main
 
 
 if __name__ == "__main__":

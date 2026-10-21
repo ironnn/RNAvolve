@@ -1,7 +1,7 @@
-# InvaRNA
+# RNAvolve
 
 Code and computational assets accompanying the manuscript
-“InvaRNA enables transferable mRNA sequence–function modeling from sparse functional
+“RNAvolve enables transferable mRNA sequence–function modeling from sparse functional
 measurements.”
 
 For manuscript verification, start from [`figures/`](figures/README.md):
@@ -26,12 +26,17 @@ bash figures/fig5/reproduce.sh
 | `external_models/` | External baseline implementations and license evidence |
 | `figures/` | Fig. 2–5 analysis and plotting; Extended Data panel-level source tables |
 | `tests/` | Smoke, split-integrity, checkpoint, and manuscript-value checks |
-| `src/invarna/` | Import-compatible internal package used by the public entry points and released checkpoints |
+| `src/rnavolve/` | RNAvolve Python package used by the public entry points |
 | `docs/` | Reproducibility, provenance, figure audit, licensing, and known limitations |
 
-The `src/invarna/` package name is intentionally retained because released PyTorch
-checkpoints and compatibility shims depend on its module paths. Reviewer-facing tasks
-should use the top-level directories above.
+The Python package is `rnavolve`; the model and API classes use the `RNAvolve`
+prefix (for example, `RNAvolveConfig` and `RNAvolvePredictor`). Reviewer-facing
+tasks can use the top-level directories above. The released neural checkpoints
+store native RNAvolve class names, configuration fields, and backbone keys and
+load directly without compatibility aliases. Tensor values are unchanged, but
+serialized-file hashes were updated after migration. Private source locations
+are represented by logical identifiers in the public provenance records.
+See [`docs/RENAMING.md`](docs/RENAMING.md) for the naming audit and validation scope.
 
 All repository-owned commands, configurations, data references, outputs, and copied
 baseline runtime defaults use paths relative to the repository root. The workflow does
@@ -58,7 +63,7 @@ python external_models/audit_licenses.py
 python tests/smoke/test_pipeline.py --core-only
 ```
 
-The seven `.zst` files are already under `assets/checkpoints/` in Git (500,739,484
+The seven `.zst` files are under `assets/checkpoints/` (500,734,116
 compressed bytes). Verify and decompress them as described in
 [`assets/checkpoints/README.md`](assets/checkpoints/README.md). The full
 checkpoint/inference/routing smoke also requires CUDA/Triton kernels on an NVIDIA GPU:
@@ -137,7 +142,7 @@ python data_generation/label_generation/teacher/train_teacher.py \
   --config data_generation/label_generation/configs/te_teacher.yaml
 
 # Synthetic variants
-INVARNA_GENERATION_CONFIG=data_generation/evolutionary_variants/configs/k80.yaml \
+RNAVOLVE_GENERATION_CONFIG=data_generation/evolutionary_variants/configs/k80.yaml \
   python data_generation/evolutionary_variants/generate_k80.py
 python data_generation/evolutionary_variants/generate_matched_random.py --help
 python data_generation/flow_matching/generate.py
@@ -161,7 +166,7 @@ expensive training must be rerun to verify reported values.
 
 ## License
 
-The top-level MIT license applies only to InvaRNA-authored material. Third-party code,
+The top-level MIT license applies only to RNAvolve-authored material. Third-party code,
 model artifacts, and checkpoints retain their original licenses; see
 [`docs/THIRD_PARTY_LICENSES.md`](docs/THIRD_PARTY_LICENSES.md) and
 [`external_models/THIRD_PARTY_LICENSES.tsv`](external_models/THIRD_PARTY_LICENSES.tsv).

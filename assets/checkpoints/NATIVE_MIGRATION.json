@@ -1,0 +1,78 @@
+[
+  {
+    "path": "backbone/pretrained_step13500.pt",
+    "tensor_count": 334,
+    "tensor_equivalence": "exact",
+    "canonical_tensor_sha256": "3e688af1aef3d3bfc558d96341f693d0f72c226eac3a7c33014df40aae54da07",
+    "before_sha256": "23706419948088f695543a8f40c3f2993de512d9872488e74c85bec6d2baa2c5",
+    "after_sha256": "6c01e4862777aab77081f85e04688998f1ed6f6c98098b9c26c6f503dbd81883",
+    "bytes": 76691196,
+    "compressed_bytes": 71144133,
+    "compressed_sha256": "91d730074e37d3e708645aea1141be4da3c195a3066a3db688e232255ccb99f4"
+  },
+  {
+    "path": "teacher/privileged_teacher.pkl",
+    "tensor_count": null,
+    "tensor_equivalence": "not applicable: fitted teacher already clean",
+    "before_sha256": "293ba0b0f2b8d792a36e2f6cde20f24adb7422ab3df8afc79667f8feb1b5dc06",
+    "after_sha256": "293ba0b0f2b8d792a36e2f6cde20f24adb7422ab3df8afc79667f8feb1b5dc06",
+    "bytes": 72259000,
+    "compressed_bytes": 26535308,
+    "compressed_sha256": "19305597d8cbbbe6c62101c6cb3ef30477fe76f18188ae0642d74585cb794f42"
+  },
+  {
+    "path": "te_student/w0.ckpt",
+    "tensor_count": 357,
+    "tensor_equivalence": "exact",
+    "canonical_tensor_sha256": "b483a67739644542b65d111b26804b1d041736114a220a320f7b903582edf61b",
+    "before_sha256": "c4474eaf02204db1c55830b076aa0cf0b964ec008f9473eae2f4fed1638884d0",
+    "after_sha256": "9dd219b023456de1125f1c2516ba2ecc10d7c011e55458ec3d11218b2b8954d4",
+    "bytes": 86879678,
+    "compressed_bytes": 80589500,
+    "compressed_sha256": "ba076509af7403c1b3d68a9ed38dc15f69f1ef7615fb558addc6d36d860e05f1"
+  },
+  {
+    "path": "te_student/w1.ckpt",
+    "tensor_count": 357,
+    "tensor_equivalence": "exact",
+    "canonical_tensor_sha256": "ae28dc1176f1273167439c6e66b2cdaa0833e3af2a809aa56ab21ef186f9db77",
+    "before_sha256": "7dc3215df1e3b49c25c2d39c3588c46bc347166a83e66ff3f80a625cdff559eb",
+    "after_sha256": "56e4d2afcc2b718056f21f07db28d39fcc00ce296112e7296fe00e58ba3408d9",
+    "bytes": 86880382,
+    "compressed_bytes": 80628799,
+    "compressed_sha256": "d411cc2b97ac5340fb9d92531f8f8a063e31164b8e7de57c49dcb119135c6844"
+  },
+  {
+    "path": "te_student/w2.ckpt",
+    "tensor_count": 357,
+    "tensor_equivalence": "exact",
+    "canonical_tensor_sha256": "fc11eff150ffd5cbfaf30d4e025c318e215d00640af4daf58f70d0ed4cde558b",
+    "before_sha256": "e0a58a1ab16a10748c653156176ba13f389db7993366fda9f779f981061b7492",
+    "after_sha256": "5eb232acb144ef6965280a554bfdbf7bab67f4bc677ae1532a9561858e04a0aa",
+    "bytes": 86879678,
+    "compressed_bytes": 80626745,
+    "compressed_sha256": "3a8ee62f9af85e7362f204bb9ec5b57680ef92cf4463d32f018635e7b1e54a1f"
+  },
+  {
+    "path": "te_student/final_tdc.ckpt",
+    "tensor_count": 357,
+    "tensor_equivalence": "exact",
+    "canonical_tensor_sha256": "da2ffc6c7779f3f3c5f806b814537a02f38a69908fe8743a32a3f32c7d2c3a72",
+    "before_sha256": "e6ba371086e222ad13980f8086dfbbdf5da9dfc0de9263681ecad9276c5c4566",
+    "after_sha256": "64d5f289d92081acc5eae6556af7017acb14838648247f3b15bd248a965e71fe",
+    "bytes": 86902603,
+    "compressed_bytes": 80608895,
+    "compressed_sha256": "e7b8f239c8a01ddb85032deaa6e3a87768a8d419f72ad6fb1883f4d33ee04b17"
+  },
+  {
+    "path": "half_life/final_half_life.ckpt",
+    "tensor_count": 357,
+    "tensor_equivalence": "exact",
+    "canonical_tensor_sha256": "dae36a9ac66cde51377e51f3a9c86b54036efa5b7e3ab2293627fff7796cd654",
+    "before_sha256": "af0136a5e3524cf30f57ca7f22e94de5b2f603708bc3c2f4421b1289fa29d08c",
+    "after_sha256": "9ad4581e22bc924fd1a669b4b29152fed6737ed4436ed09fcda6eeafc599d2d3",
+    "bytes": 86904525,
+    "compressed_bytes": 80600736,
+    "compressed_sha256": "99177a173eae3d8226adf2838c55aa5335bf28f48af1bf31192595bf476ac964"
+  }
+]

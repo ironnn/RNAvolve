@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "invarna"
+name = "rnavolve"
 version = "0.1.0"
 description = "RNA representation learning and translation-efficiency modeling"
 readme = "README.md"
@@ -37,4 +37,4 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["invarna*"]
+include = ["rnavolve*"]

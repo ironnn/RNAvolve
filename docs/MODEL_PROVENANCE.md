@@ -5,7 +5,7 @@ complete only when its architecture/loading code, exact checkpoint, provenance r
 and immutable checksum are all known. Local-only and third-party files are not made
 GitHub-safe merely by being present on disk.
 
-## InvaRNA-native models
+## RNAvolve-native models
 
 | Group | Required artifacts | Local status | Integrity record | Publication action |
 |---|---:|---|---|---|
@@ -16,12 +16,13 @@ GitHub-safe merely by being present on disk.
 | Native inference registry | 5 Stage-1 + 14 Stage-2 TE + 2 half-life checkpoints | Complete locally | `assets/checkpoints/INFERENCE_SHA256SUMS` | Private historical inventory; only four TE and one HL weights are distributed |
 | Fig. 5 updated design predictors | Four TE ensemble members and `hl_new` are contained in the native registry | Complete; prospective configuration | `assets/checkpoints/REQUIRED_SHA256SUMS` | Five compressed weights tracked in Git |
 
-Exact native inventory:
+Historical native inventory (the run-0412 model is identified by its run number;
+literal original paths are retained in the private migration backup):
 
 - Backbone: `model_weights0718step13500.pt`.
 - Privileged teacher: `teacher_model.pkl`.
 - Stage-1 registry: `evo`, `hlevo_e2`, `hlevo_e7`, `noevo_s1`, `test_s1`.
-- Stage-2 TE registry: `InvaRNA0412`, `noevo`, `notaylor`, `old1`, `old2`,
+- Stage-2 TE registry: run `0412`, `noevo`, `notaylor`, `old1`, `old2`,
   `only_taylor_beidian`, `taylor_dist`, `taylor_dist_e14`, `taylor_dist_e21`,
   `w0`, `w1`, `w2`, `world_old`, `wt_human`.
 - Half-life registry: `hl0704`, `hl_new`.
@@ -33,7 +34,9 @@ Exact native inventory:
 The current Fig. 5 design configs use four TE predictors: `w0`, `w1`, `w2`, and
 `final_tdc`, plus the separate half-life model `hl_new`. The first three are renamed
 distribution files for the historical `wt`, `world_new`, and `world_new07522`
-weights, respectively; the serialized bytes and SHA-256 values are unchanged.
+weights, respectively. Tensor values are unchanged; the RNAvolve-native metadata
+migration changes the serialized bytes and SHA-256 values. The current hashes are
+listed in `assets/checkpoints/REQUIRED_SHA256SUMS`.
 This four-TE ensemble is a prospective configuration update, not evidence that the
 historical manuscript Fig. 5 runs used four TE models. The exact historical
 all-task production launcher remains unrecovered.
@@ -46,7 +49,7 @@ The three selected Fig. 3 ablations map to the authenticated runs as follows:
 | `ablation_1k_org.ckpt` | K80, absolute teacher targets | 0.7346692 |
 | `ablation_3kl_tay.ckpt` | K80, WT-anchored distance-scaled TDC | 0.7393672 |
 
-`InvaRNA0412.ckpt` and `taylor_dist_e14.ckpt` have different serialized-file hashes
+The historical run-0412 checkpoint and `taylor_dist_e14.ckpt` have different serialized-file hashes
 but identical 357-key state dictionaries and identical held-out predictions in the
 recorded matched-runtime test. They remain separate provenance artifacts.
 
@@ -131,7 +134,7 @@ for the manuscript figures.
 
 Selected fine-tuned runs are: `codonbert`, `dnabert2`, `evo2_8k`, `lucaone`,
 `mrnabert`, `orthrus`, `ribonn`, `rnafm`, `utrlm`,
-and the `invarna_human_mouse` common-split control. These names identify the records
+and the `rnavolve_human_mouse` common-split control. These names identify the records
 in `external_models/DOWNLOADS.tsv`; they do not imply that weights are redistributed.
 
 ## Verification

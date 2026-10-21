@@ -1,7 +1,7 @@
 # Environment snapshot
 
 The repository records the complete current Conda environment named `mamballm`, not
-only the packages imported by the compact InvaRNA package.
+only the packages imported by the compact RNAvolve package.
 
 - `environment.yml` contains every Conda and pip package with a version pin but omits
   Conda build strings. This is the preferred review installation file.
@@ -30,7 +30,7 @@ python -m pip install -e . --no-deps
 Both YAML files were exported on 2026-09-20 and have no local `prefix`, editable
 installation, username, or absolute project path. The full environment contains
 packages used by external-model baselines and other tools in addition to the core
-InvaRNA workflow because it is an exact inventory of the requested `mamballm`
+RNAvolve workflow because it is an exact inventory of the requested `mamballm`
 environment.
 
 This snapshot must not be described as the original training environment. A

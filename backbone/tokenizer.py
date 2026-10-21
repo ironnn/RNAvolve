@@ -1,5 +1,5 @@
 """Canonical tokenizer export."""
 
-from invarna.models.tokenization import InvaRNATokenizer
+from rnavolve.models.tokenization import RNAvolveTokenizer
 
-__all__ = ["InvaRNATokenizer"]
+__all__ = ["RNAvolveTokenizer"]

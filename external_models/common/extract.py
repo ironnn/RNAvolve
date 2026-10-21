@@ -8,7 +8,7 @@ Two modes:
   - whole-sequence: extract_embeddings() -> per-token (L,H) or pooled (H,)
   - region-aware:   embed_regions() -> per-region mean+max concat, driven by spec.regions
                     (codonbert->cds, rest->utr5/cds/utr3). Mirrors the
-                    InvaRNA ablation (pipeline_k80/4_extract_embedding.py) and the region
+                    RNAvolve ablation (pipeline_k80/4_extract_embedding.py) and the region
                     convention in sft/train_te_*.py.
 
 Returns a dict per call so run_embedding.py / programmatic callers can use it directly.
@@ -122,7 +122,7 @@ def embed_whole(spec, backbone, tokenizer, seq, device="cuda:0", max_len=None):
 def embed_regions(spec, backbone, tokenizer, mrna, u5, cds, u3, device="cuda:0", max_len=None):
     """Region-aware embedding: for each region in spec.regions, slice the substring,
     encode+forward it through the backbone, and pool with mean+max concatenated
-    (matches InvaRNA ablation pipeline_k80/4_extract_embedding.py).
+    (matches RNAvolve ablation pipeline_k80/4_extract_embedding.py).
 
     Each region is run as its OWN forward pass on its substring — the only
     tokenizer-agnostic method (BPE/codon/k-mer tokenizers have no 1:1 nt<->token map).

@@ -132,7 +132,7 @@ def audit_splits() -> None:
 
 
 def install_checkpoint_alias() -> None:
-    from invarna.models import configuration
+    from rnavolve.models import configuration
 
     legacy_package = sys.modules.setdefault("backbone", types.ModuleType("backbone"))
     legacy_package.__path__ = []
@@ -174,7 +174,8 @@ def audit_runs() -> pd.DataFrame:
         require(np.isclose(validation_r2, best["val_r2_global"], atol=1e-6), f"{run.stem}: validation R2 mismatch")
 
         require(sha256(run.checkpoint) == hashes[run.checkpoint.name], f"{run.stem}: checkpoint hash mismatch")
-        payload = torch.load(run.checkpoint, map_location="cpu", weights_only=False)
+        from rnavolve.models.checkpoint import load_checkpoint
+        payload = load_checkpoint(run.checkpoint, map_location="cpu")
         require(int(payload["epoch"]) == run.epoch, f"{run.stem}: checkpoint epoch mismatch")
         require(len(payload["state_dict"]) == 357, f"{run.stem}: expected 357 state tensors")
         signature = {key: tuple(value.shape) for key, value in payload["state_dict"].items()}

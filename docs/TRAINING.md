@@ -1,13 +1,13 @@
 # Training
 
-Backbone MLM pretraining uses `invarna.training.pretrain`; student TE fine-tuning uses
-`invarna.training.train_student`; the LightGBM teacher entry point is
-`invarna.training.train_teacher`. Experiment defaults live under `configs/`.
+Backbone MLM pretraining uses `rnavolve.training.pretrain`; student TE fine-tuning uses
+`rnavolve.training.train_student`; the LightGBM teacher entry point is
+`rnavolve.training.train_teacher`. Experiment defaults live under `configs/`.
 
 ```bash
-python -m invarna.training.pretrain --help
-python -m invarna.training.train_student --help
-python -m invarna.training.train_teacher --help
+python -m rnavolve.training.pretrain --help
+python -m rnavolve.training.train_student --help
+python -m rnavolve.training.train_teacher --help
 ```
 
 The released backbone uses a 10,000-nt frame, A/C/G/T-only MLM masking, and the

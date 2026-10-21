@@ -111,7 +111,7 @@ print(f"  F3A: {len(plot_data_A)} species")
 print("=== F3B: Loading prediction distribution data ===")
 
 F3B_MODELS = [
-    {'label': 'InvaRNA',  'file': f'{DATA_DIR}/F3B_three_model_predictions_merged.csv', 'col': 'pred_invarna0412'},
+    {'label': 'RNAvolve',  'file': f'{DATA_DIR}/F3B_three_model_predictions_merged.csv', 'col': 'pred_rnavolve0412'},
     {'label': 'RiboNN',   'file': f'{DATA_DIR}/F3B_three_model_predictions_merged.csv', 'col': 'pred_ribonn'},
     {'label': 'UTR-LM',   'file': f'{DATA_DIR}/F3B_three_model_predictions_merged.csv', 'col': 'pred_utrlm'},
 ]
@@ -170,7 +170,7 @@ con_data = {
 print(f"  Checked conservation track: {len(checked_con)} bp")
 
 # =============================================================================
-# === F3F: MPRA 3k Spearman bar (InvaRNA0412 vs RiboNN vs UTRLM, 10 datasets) ===
+# === F3F: MPRA 3k Spearman bar (RNAvolve0412 vs RiboNN vs UTRLM, 10 datasets) ===
 # =============================================================================
 print("=== F3F: Loading MPRA 3k data ===")
 
@@ -186,7 +186,7 @@ print(f"  Checked MPRA rows: {len(results_f)}")
 checked_f = pd.read_csv(os.path.join(DATA_DIR, 'F3F_heldout_human_TE_prediction_R2.csv'))
 G_labels = checked_f['model'].tolist()
 G_scores = checked_f['heldout_human_te_prediction_r2'].tolist()
-G_colors = [INV_RED if name == 'InvaRNA' else ('#9CA3AF' if name == 'RiboNN' else '#DDDDDF')
+G_colors = [INV_RED if name == 'RNAvolve' else ('#9CA3AF' if name == 'RiboNN' else '#DDDDDF')
             for name in G_labels]
 
 # =============================================================================
@@ -430,7 +430,7 @@ ax_d.text(0.1, 3.50,
 ax_d.text(0.1, 3.22,
           r'$\alpha = 0.3$,  $n_{mut}$: Hamming distance,  $n_{max}$: max mutations per gene',
           fontsize=10, color='#1e40af')
-ax_d.text(4.85, 3.42, 'Pure-sequence\nInvaRNA Student',
+ax_d.text(4.85, 3.42, 'Pure-sequence\nRNAvolve Student',
           ha='center', va='center', color='white', fontweight='bold', fontsize=10,
           bbox=dict(boxstyle='round,pad=0.45', facecolor='#ef4444', edgecolor='none'),
           zorder=10)
@@ -448,7 +448,7 @@ legend_d = [
     mlines.Line2D([0],[0], color='#fca5a5', lw=1.8, ls='--',
                   label='Taylor correction only'),
     mlines.Line2D([0],[0], color='#ef4444', lw=3.5,
-                  label='Final correction (InvaRNA)'),
+                  label='Final correction (RNAvolve)'),
 ]
 ax_d.legend(handles=legend_d, loc='lower left', frameon=False,
             fontsize=9, bbox_to_anchor=(0.28, 0.01))
@@ -513,8 +513,8 @@ ax_edot.tick_params(left=False)
 
 # --- Panel F: MPRA mean±SD summary bar ---
 ax_f = fig.add_subplot(row2_gs[2])
-model_order_f = ['UTRLM', 'RiboNN', 'InvaRNA']
-palette_f = {'InvaRNA': INV_RED, 'RiboNN': INV_GRAY, 'UTRLM': '#D1D5DB'}
+model_order_f = ['UTRLM', 'RiboNN', 'RNAvolve']
+palette_f = {'RNAvolve': INV_RED, 'RiboNN': INV_GRAY, 'UTRLM': '#D1D5DB'}
 f_means, f_sds = [], []
 for m in model_order_f:
     vals = results_f[results_f['Model'] == m]['Spearman_R'].dropna()
@@ -572,8 +572,8 @@ panel_label(ax_g, 'F', x=-0.10)
 # Save
 # =============================================================================
 date_str = 'checked'
-out_pdf = f'{OUT_DIR}/InvaRNA_Fig3_Combined_{date_str}.pdf'
-out_png = f'{OUT_DIR}/InvaRNA_Fig3_Combined_{date_str}.png'
+out_pdf = f'{OUT_DIR}/RNAvolve_Fig3_Combined_{date_str}.pdf'
+out_png = f'{OUT_DIR}/RNAvolve_Fig3_Combined_{date_str}.png'
 plt.savefig(out_pdf, bbox_inches='tight')
 print(f"Saved: {out_pdf}")
 plt.savefig(out_png, dpi=200, bbox_inches='tight')
@@ -817,7 +817,7 @@ def _make_panel_d():
     ax.text(0.1, 3.22,
             r'$\alpha = 0.3$,  $n_{mut}$: Hamming distance,  $n_{max}$: max mutations per gene',
             fontsize=10, color='#1e40af')
-    ax.text(4.85, 3.42, 'Pure-sequence\nInvaRNA Student',
+    ax.text(4.85, 3.42, 'Pure-sequence\nRNAvolve Student',
             ha='center', va='center', color='white', fontweight='bold', fontsize=10,
             bbox=dict(boxstyle='round,pad=0.45', facecolor='#ef4444', edgecolor='none'),
             zorder=10)

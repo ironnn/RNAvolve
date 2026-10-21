@@ -1,11 +1,11 @@
 # Interpretability
 
-`invarna.interpretability` contains routing aggregation, feature-shuffle controls, and
-InvaRNA-native scoring helpers for dORF and yeast analyses. Publication source tables remain
+`rnavolve.interpretability` contains routing aggregation, feature-shuffle controls, and
+RNAvolve-native scoring helpers for dORF and yeast analyses. Publication source tables remain
 pending provenance review.
 # Fig. 4 element routing and dORF nomination
 
-The final Fig. 4A computation used `InvaRNA0412` and four `gate_fwd` experts. For
+The final Fig. 4A computation used `RNAvolve0412` and four `gate_fwd` experts. For
 each annotated element, only the element interval was shuffled, preserving local
 nucleotide composition. The native sequence and 20 shuffles were passed through
 the model; expert softmax probabilities were averaged over the same interval and
@@ -76,23 +76,24 @@ The large mature-transcript table, raw RPFdb featureCounts files, and licensed m
 annotation inputs are not bundled. The compact recovered outputs are included for
 review without rerunning the GPU-intensive permutations.
 
-The production InvaRNA0412 rerun split both calculations into two contiguous GPU
+The production RNAvolve0412 rerun split both calculations into two contiguous GPU
 chunks. F4A restarted seed 42 in both processes; genome-wide dORF used seeds
 `99 + shard_index`. The shard options above preserve that behavior. Merge the two
 output CSVs before ranking; the bundled merged output is the recovered reference.
 
 ## Provenance
 
-Core logic was copied from the recovered production files, with only paths, device
-selection, and CLI I/O parameterized for anonymous review:
+Core logic was copied from the recovered production files, with paths, device
+selection, and CLI I/O parameterized for the release. Source hashes are retained
+below; literal original paths are preserved in the private migration backup:
 
 - `f4a_local_shuffle.py`: SHA256 `e24875ea269e9a55974c71bf948cb56c5294b561146f9ef87c53742ef1fd0bdf`
 - `F4X0412.py`: SHA256 `41e08065e9b64a47d8581f282501f64588e27f0dc96057eca0287dee46bba0a0`
 - `01_orf_scan.py`: SHA256 `5040dee67588cb39041d967f64bced4f0578e992ff4f21ef8426781ce500bd04`
 - `02_rpkm_analysis.py`: SHA256 `df8983d0d88b53aa9e9eae005b0f610915b4fad4a38172df2a354df7fb5315cb`
-- `run_moe_InvaRNA0412.py`: SHA256 `2e74417210e72c4815c502f25d57f762fda1cca587c23771be7d162e20d36590`
+- Routing production script for run 0412: SHA256 `2e74417210e72c4815c502f25d57f762fda1cca587c23771be7d162e20d36590`
 
-NEEDS_AUTHOR_CONFIRMATION: a saved `F4A_InvaRNA0412_stats.csv` predates the final
+NEEDS_AUTHOR_CONFIRMATION: a saved historical Fig. 4A statistics table for run 0412 predates the final
 local-shuffle outputs and contains the earlier whole-region-shuffle values for RBP
 and miRNA. The later figure script explicitly loads `_f4a_local_s0/s1.csv`; the
 repository therefore preserves and recomputes the local-shuffle result, without

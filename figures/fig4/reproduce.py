@@ -13,8 +13,8 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from invarna.interpretability.dorf_scoring import rank_dorf_candidates
-from invarna.interpretability.feature_shuffle import iqr_filter_element_scores, summarize_element_scores
+from rnavolve.interpretability.dorf_scoring import rank_dorf_candidates
+from rnavolve.interpretability.feature_shuffle import iqr_filter_element_scores, summarize_element_scores
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -56,7 +56,7 @@ def main() -> int:
     fig.savefig(args.output_dir / "fig4a_element_routing.png", dpi=150)
     plt.close(fig)
 
-    genome = pd.read_csv(SOURCE / "dorf_zscore_genome_wide_InvaRNA0412.csv")
+    genome = pd.read_csv(SOURCE / "dorf_zscore_genome_wide_RNAvolve0412.csv")
     rank_dorf_candidates(genome).to_csv(args.output_dir / "fig4b_dorf_ribosome_rank.csv", index=False)
     print(f"Saved Fig. 4 computational outputs under {args.output_dir}")
     return 0

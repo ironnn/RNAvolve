@@ -29,7 +29,7 @@ jobs:
           python tests/test_relative_paths.py
       - name: Unit and core smoke checks
         run: |
-          python -m pytest -q tests/test_tdc.py tests/test_rl_checkpoint_registry.py
+          python -m pytest -q tests/test_tdc.py tests/test_rl_checkpoint_registry.py tests/test_renaming.py
           python tests/smoke/test_pipeline.py --core-only
       - name: Gene-disjoint split and synthetic-anchor checks
         run: |
@@ -46,4 +46,4 @@ jobs:
           python tests/test_manuscript_values.py
           python figures/fig4/audit.py --strict
       - name: Figure 5 CPU RL smoke
-        run: python tests/smoke/test_fig5_rl_pipeline.py --output-dir "${{ runner.temp }}/invarna_rl_smoke"
+        run: python tests/smoke/test_fig5_rl_pipeline.py --output-dir "${{ runner.temp }}/rnavolve_rl_smoke"

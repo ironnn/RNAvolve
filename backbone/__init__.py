@@ -1,6 +1,6 @@
-"""Reviewer-facing access to the InvaRNA self-supervised backbone.
+"""Reviewer-facing access to the RNAvolve self-supervised backbone.
 
-The implementation is kept under ``src/invarna``.  Add that source tree when
+The implementation is kept under ``src/rnavolve``.  Add that source tree when
 the lightweight ``backbone.*`` compatibility package is imported directly
 from a repository checkout (without requiring an editable install first).
 """

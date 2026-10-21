@@ -8,7 +8,7 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
-from invarna.synthetic.matched_random import mutate_matched
+from rnavolve.synthetic.matched_random import mutate_matched
 
 SUFFIX = re.compile(r"_mut\d+$")
 

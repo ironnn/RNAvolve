@@ -12,11 +12,11 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from invarna.data.fixed_frame import FIXED_CDS_START, TOTAL_LENGTH, align_and_pad
-from invarna.evaluation.inference_api import InvaRNAPredictor
-from invarna.interpretability.dorf_scoring import EXPERT_NAMES, extract_utr3, rank_dorf_candidates
-from invarna.interpretability.feature_shuffle import expert_region_zscore
-from invarna.interpretability.routing import infer_aligned_routing
+from rnavolve.data.fixed_frame import FIXED_CDS_START, TOTAL_LENGTH, align_and_pad
+from rnavolve.evaluation.inference_api import RNAvolvePredictor
+from rnavolve.interpretability.dorf_scoring import EXPERT_NAMES, extract_utr3, rank_dorf_candidates
+from rnavolve.interpretability.feature_shuffle import expert_region_zscore
+from rnavolve.interpretability.routing import infer_aligned_routing
 
 
 UTR5_BACKBONE = "GGGAGACCCAAGCTGGCTAGCGTTTAAACTTAAGCTTGGTACCGAGCTCGGATCC"
@@ -64,7 +64,7 @@ def main() -> int:
     start = args.shard_index * quotient + min(args.shard_index, remainder)
     end = start + quotient + int(args.shard_index < remainder)
     merged = merged.iloc[start:end]
-    predictor = InvaRNAPredictor(args.model, device=args.device)
+    predictor = RNAvolvePredictor(args.model, device=args.device)
     rng = random.Random(args.seed + args.shard_index)
     rows = []
     for row in merged.itertuples(index=False):

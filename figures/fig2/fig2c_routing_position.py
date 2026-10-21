@@ -18,8 +18,9 @@ from omegaconf import OmegaConf
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-from invarna.models.configuration import InvaRNAConfig
-from invarna.models.mamba_backbone import InvaRNAForMaskedLM
+from rnavolve.models.configuration import RNAvolveConfig
+from rnavolve.models.checkpoint import load_checkpoint
+from rnavolve.models.mamba_backbone import RNAvolveForMaskedLM
 
 
 EXPERTS = ["Single-base", "Codon", "9-mer", "Ribosome"]
@@ -42,8 +43,8 @@ def build_model(config_path: Path, checkpoint_path: Path, device: torch.device):
     config = OmegaConf.load(config_path)
     model_config = OmegaConf.to_container(config.model.config, resolve=True)
     model_config.pop("_target_", None)
-    model = InvaRNAForMaskedLM(InvaRNAConfig(**model_config))
-    state = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+    model = RNAvolveForMaskedLM(RNAvolveConfig(**model_config))
+    state = load_checkpoint(checkpoint_path, map_location="cpu")
     state = state.get("state_dict", state)
     missing, unexpected = model.load_state_dict(state, strict=False)
     if missing or unexpected:
@@ -55,12 +56,12 @@ def build_model(config_path: Path, checkpoint_path: Path, device: torch.device):
 
 def recompute(
     input_ids: torch.Tensor,
-    model: InvaRNAForMaskedLM,
+    model: RNAvolveForMaskedLM,
     device: torch.device,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     input_ids = input_ids.to(device)
     with torch.inference_mode():
-        _hidden, _states, moe_logits = model.invaRNA(
+        _hidden, _states, moe_logits = model.rnavolve(
             input_ids=input_ids, output_hidden_states=True, return_dict=False
         )
     probabilities = torch.softmax(moe_logits.float(), dim=-1)

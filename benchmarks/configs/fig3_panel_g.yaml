@@ -43,8 +43,8 @@ models:
     runs_table: assets/checkpoints/external/pretrained/models/ribonn/RiboNN-1.0.0/models/runs.csv
     run_table_selection: first_row
     top_k_models_to_use: 1
-  InvaRNA:
-    prediction_file: assets/benchmark_data/mpra/fig3g/predictions/pred_invarna_taylor_dist_e14_3k.csv
+  RNAvolve:
+    prediction_file: assets/benchmark_data/mpra/fig3g/predictions/pred_rnavolve_taylor_dist_e14_3k.csv
     prediction_column: pred_taylor_dist_e14
     apply_group_sampling: false
     checkpoint: assets/checkpoints/te_student/final_tdc.ckpt
@@ -53,11 +53,11 @@ models:
 expected:
   UTRLM: {mean: 0.08553880569210122, sd: 0.11926778671834146}
   RiboNN: {mean: 0.2596562194968213, sd: 0.09461792624546723}
-  InvaRNA: {mean: 0.35321597527854875, sd: 0.09327951065473886}
+  RNAvolve: {mean: 0.35321597527854875, sd: 0.09327951065473886}
 
 source_sha256:
   panel_3k: 2e6f28262720423f9176739060e74b14bd866ccfe1b788aee3a9c08bc6bed555
   original_100k_per_library: 48b711bdbe7f306786846b02a0dadd78ce4277468d4a043a9be1de7612ecc7d3
-  InvaRNA: 8b922cccbc76deb55678f787193855b90d0c12aefbc7b14f2d887203c6e1c428
+  RNAvolve: 8b922cccbc76deb55678f787193855b90d0c12aefbc7b14f2d887203c6e1c428
   RiboNN: 340f0446fb5b78cb47dcc4fbee2d69e299a01970d0451af0ffde4c9c660c8047
   UTRLM: 1488a527a9621b1d67431de75cc81301d1a046333ef13a4187bf1ea7fb6b0f59

@@ -1,6 +1,6 @@
 # Distillation contract
 
-The label rule is source-specific and enforced by `invarna.distillation.tdc`:
+The label rule is source-specific and enforced by `rnavolve.distillation.tdc`:
 
 - WT: measured TE.
 - K80 local variants: measured WT + teacher mutant–WT delta × normalized Hamming distance; alpha 1.0.

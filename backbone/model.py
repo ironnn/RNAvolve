@@ -1,6 +1,6 @@
-"""Canonical backbone model exports; implementation remains in the `invarna` package."""
+"""Canonical backbone model exports; implementation remains in the `rnavolve` package."""
 
-from invarna.models.configuration import InvaRNAConfig
-from invarna.models.mamba_backbone import InvaRNAForMaskedLM, InvaRNAForRegression
+from rnavolve.models.configuration import RNAvolveConfig
+from rnavolve.models.mamba_backbone import RNAvolveForMaskedLM, RNAvolveForRegression
 
-__all__ = ["InvaRNAConfig", "InvaRNAForMaskedLM", "InvaRNAForRegression"]
+__all__ = ["RNAvolveConfig", "RNAvolveForMaskedLM", "RNAvolveForRegression"]

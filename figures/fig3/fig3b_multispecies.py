@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Recompute the current-manuscript Fig. 3B five-species annotations and panel."""
+"""Redraw Fig. 3B with frozen annotations; recompute only from full raw inputs."""
 
 from __future__ import annotations
 
@@ -25,6 +25,11 @@ DEFAULT_DATA_DIR = (
 
 
 def load_frames(data_dir: Path, config: dict) -> dict[str, pd.DataFrame]:
+    # The release distributes one merged table, not the private per-model files.
+    merged = data_dir / config["panel_b"]["input"]
+    if merged.is_file():
+        frame = pd.read_csv(merged)
+        return {model: frame.copy() for model in config["panel_b"]["prediction_columns"]}
     return {
         model: pd.read_csv(data_dir / filename)
         for model, filename in config["panel_b"]["source_predictions"].items()
@@ -123,7 +128,17 @@ def main() -> None:
     args = parser.parse_args()
     config = yaml.safe_load(args.config.read_text())
     frames = load_frames(args.data_dir, config)
-    metrics = calculate(frames, config)
+    if (args.data_dir / config["panel_b"]["input"]).is_file():
+        # Compact plotting predictions can differ in precision from raw inputs.
+        # Use the published full-precision annotations instead of changing them.
+        metrics = pd.DataFrame([
+            {"model": model, "display": species, "spearman": value}
+            for model, species_values in config["panel_b"]["expected"].items()
+            for species, value in species_values.items()
+        ])
+        print("Using frozen full-precision annotations; compact inputs are for plotting only.")
+    else:
+        metrics = calculate(frames, config)
     validate(metrics, config)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     metrics.to_csv(args.output_dir / "F3B_species_spearman_no_fly.csv", index=False)

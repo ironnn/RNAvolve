@@ -7,7 +7,7 @@ Region : CDS only  (mrna[utr5_size : utr5_size+cds_size]), read 5'->3'.
 MaxLen : 1024 tokens (CodonBERT codon tokenizer, max_position_embeddings=1024).
 Env    : agent2
 
-Harness follows InvaRNA/train/finetune_stage2.py:
+Harness follows RNAvolve/train/finetune_stage2.py:
   - PyTorch-Lightning + DDPStrategy(find_unused_parameters=False), precision bf16-mixed
   - label=mean_te, loss=MSELoss; head = native if backbone ships one else shared
   - per-epoch val+test eval: all_gather -> sklearn r2_score -> dump

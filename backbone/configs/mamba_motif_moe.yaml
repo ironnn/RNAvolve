@@ -44,12 +44,12 @@ trainer:
   precision: bf16
   val_check_interval: 1000
 dataset:
-  _name_: invarna
+  _name_: rnavolve
   train_file: assets/manuscript_figures/train0606.fasta
   val_file: assets/manuscript_figures/val0606.fasta
   bed_file: null
   fasta_file: null
-  dataset_name: invarna
+  dataset_name: rnavolve
   tokenizer_name: char
   cache_dir: null
   max_length: 10000
@@ -126,9 +126,9 @@ loader:
   pin_memory: false
   drop_last: true
 model:
-  _name_: invarna_lm
+  _name_: rnavolve_lm
   config:
-    _target_: invarna.models.configuration.InvaRNAConfig
+    _target_: rnavolve.models.configuration.RNAvolveConfig
     d_model: 256
     n_layer: 16
     vocab_size: 12

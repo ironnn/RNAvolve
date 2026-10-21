@@ -30,7 +30,8 @@ for `t0`, `t1`, and `t2`. The original source files remain outside this reposito
 
 Ext. 4 is taken from the **current manuscript figure**
 `final_paper0806/final_paper/figures/ext4.pdf`, which is byte-identical to
-`InvaRNA/benchmark/cross_species/ablation_rerun_20260704/fig3E_cross_species_ablation_spearman_revised_no_fly.pdf`.
+`benchmark/cross_species/ablation_rerun_20260704/fig3E_cross_species_ablation_spearman_revised_no_fly.pdf`
+relative to the private development checkout (outside this repository).
 Its numeric source is that directory's
 `fig3E_six_model_cross_species_metrics.csv`. The single Ext. 4 table retains exactly the
 five species displayed in the manuscript: C. elegans, D. rerio, H. sapiens,

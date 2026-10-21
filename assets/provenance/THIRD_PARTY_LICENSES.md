@@ -3,14 +3,14 @@
 ## License scope
 
 The repository-level MIT license applies only to material authored for the
-InvaRNA project unless a file or directory says otherwise. It does **not**
+RNAvolve project unless a file or directory says otherwise. It does **not**
 relicense third-party source code, model configurations, pretrained weights, or
 fine-tuned derivatives. Each third-party component remains subject to its
 upstream license and notices.
 
 The authoritative machine-readable inventory for copied baseline components is
 [`external_models/THIRD_PARTY_LICENSES.tsv`](external_models/THIRD_PARTY_LICENSES.tsv).
-InvaRNA-authored integration code under `external_models/common/`,
+RNAvolve-authored integration code under `external_models/common/`,
 `external_models/training/`, and `external_models/inference/` is covered by the repository
 MIT license unless an individual file says otherwise.
 

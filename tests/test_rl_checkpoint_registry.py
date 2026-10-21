@@ -6,7 +6,7 @@ from pathlib import Path
 import yaml
 import pytest
 
-from invarna.design.reward import primary_reward
+from rnavolve.design.reward import primary_reward
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +21,7 @@ def registry_paths() -> dict[str, str]:
         assert isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div)
         return str(Path(relative_path(node.left)) / ast.literal_eval(node.right))
 
-    source = ROOT / "src/invarna/evaluation/human_te.py"
+    source = ROOT / "src/rnavolve/evaluation/human_te.py"
     for node in ast.parse(source.read_text()).body:
         if not isinstance(node, ast.Assign):
             continue

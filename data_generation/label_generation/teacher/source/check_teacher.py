@@ -18,16 +18,16 @@ cfg_path = os.environ.get("ABLATION_CONFIG", os.path.join(ROOT_DIR, "config.yaml
 with open(cfg_path) as f:
     CFG = yaml.safe_load(f)
 
-INVARNA = CFG["invarna_root"]
-sys.path.insert(0, INVARNA)
-sys.path.insert(0, os.path.join(INVARNA, "src"))
+RNAVOLVE = CFG["rnavolve_root"]
+sys.path.insert(0, RNAVOLVE)
+sys.path.insert(0, os.path.join(RNAVOLVE, "src"))
 sys.path.insert(0, os.path.join(ROOT_DIR, "utils"))
 
 ASSETS_DIR = os.path.join(ROOT_DIR, "assets")
 TEACHER_MODEL = os.path.join(ASSETS_DIR, "teacher_model.pkl")
 HL_HUMAN = os.path.join(ASSETS_DIR, "human_time.csv")
-MODEL_WEIGHTS = os.path.join(INVARNA, "assets/checkpoints/backbone/pretrained_step13500.pt")
-MODEL_CONFIG = os.path.join(INVARNA, "config/backbone.yaml")
+MODEL_WEIGHTS = os.path.join(RNAVOLVE, "assets/checkpoints/backbone/pretrained_step13500.pt")
+MODEL_CONFIG = os.path.join(RNAVOLVE, "backbone/configs/mamba_motif_moe.yaml")
 
 GPU_IDS = CFG["gpu_ids"]
 NUM_GPUS = len(GPU_IDS)
@@ -36,8 +36,8 @@ TOTAL_LENGTH = 10000
 FIXED_CDS_START = 1000
 
 SPLITS = {
-    "val": os.path.join(INVARNA, "data/train/val_lite.parquet"),
-    "test": os.path.join(INVARNA, "data/train/test_lite.parquet"),
+    "val": os.path.join(RNAVOLVE, "data/train/val_lite.parquet"),
+    "test": os.path.join(RNAVOLVE, "data/train/test_lite.parquet"),
 }
 
 
@@ -98,19 +98,12 @@ def gpu_worker(rank, gpu_id, chunk_path, shard_path):
     torch.set_num_threads(1)
     device = torch.device(f"cuda:{gpu_id}")
 
-    from trainmodule import SequenceLightningModule
-    from backbone.tokenization import InvaRNATokenizer
+    from rnavolve.models.tokenization import RNAvolveTokenizer
+    from rnavolve.evaluation.embedding import build_backbone
 
-    config = OmegaConf.load(MODEL_CONFIG)
-    model = SequenceLightningModule(config=config)
-    state_dict = torch.load(MODEL_WEIGHTS, map_location="cpu")
-    model.model.load_state_dict(state_dict)
-    model.eval(); model.freeze()
-    backbone = model.model.invaRNA
-    backbone.config.return_dict = True
-    model = model.to(device)
+    backbone = build_backbone(MODEL_CONFIG, MODEL_WEIGHTS, device)
 
-    tokenizer = InvaRNATokenizer(model_max_length=TOTAL_LENGTH)
+    tokenizer = RNAvolveTokenizer(model_max_length=TOTAL_LENGTH)
     dataset = AlignmentDataset(chunk_path, tokenizer)
     loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False,
                         collate_fn=collate_fn, num_workers=1, pin_memory=True)

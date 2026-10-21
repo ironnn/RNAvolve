@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# InvaRNA backbone MLM pretraining — single-node multi-GPU launcher.
+# RNAvolve backbone MLM pretraining — single-node multi-GPU launcher.
 #
 # Single-node launcher using the active Python interpreter.
 #

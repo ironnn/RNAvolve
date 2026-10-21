@@ -18,15 +18,15 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from invarna.data.fixed_frame import TOTAL_LENGTH, align_and_pad
-from invarna.evaluation.inference_api import InvaRNAPredictor
-from invarna.interpretability.feature_shuffle import (
+from rnavolve.data.fixed_frame import TOTAL_LENGTH, align_and_pad
+from rnavolve.evaluation.inference_api import RNAvolvePredictor
+from rnavolve.interpretability.feature_shuffle import (
     EXPERT_NAMES,
     aligned_interval,
     expert_region_zscore,
     make_local_permutations,
 )
-from invarna.interpretability.routing import infer_aligned_routing
+from rnavolve.interpretability.routing import infer_aligned_routing
 
 
 def read_table(path: Path) -> pd.DataFrame:
@@ -56,7 +56,7 @@ def main() -> int:
     bounds = [round(len(frame) * i / args.num_shards) for i in range(args.num_shards + 1)]
     frame = frame.iloc[bounds[args.shard_index]:bounds[args.shard_index + 1]]
 
-    predictor = InvaRNAPredictor(args.model, device=args.device)
+    predictor = RNAvolvePredictor(args.model, device=args.device)
     rng = random.Random(args.seed)
     rows = []
     for index, row in frame.iterrows():

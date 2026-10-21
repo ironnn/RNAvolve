@@ -18,7 +18,6 @@ import pyarrow.parquet as pq
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_PRETRAIN_ROOT = ROOT.parent / "InvaRNA_backbone_pretrain/pretrain/data"
 DEFAULT_LOCAL_TRAINING = ROOT / "assets/training_data/human_te/local_training_tables"
 DEFAULT_OUTSIDE = ROOT / "assets"
 DEFAULT_FM = ROOT / "assets/training_data/synthetic/flow_matching"
@@ -87,7 +86,8 @@ def relative_source(path: Path | tuple[Path, ...]) -> str:
     try:
         return path.resolve().relative_to(ROOT.resolve()).as_posix()
     except ValueError:
-        return "../" + path.resolve().relative_to(ROOT.parent.resolve()).as_posix()
+        # Public provenance uses a logical source identifier, not a private checkout name.
+        return "private-source:" + path.name
 
 
 def teacher_frame(
@@ -121,7 +121,8 @@ def teacher_frame(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--pretrain-root", type=Path, default=DEFAULT_PRETRAIN_ROOT)
+    parser.add_argument("--pretrain-root", type=Path, required=True,
+                        help="Directory containing the original train0606.fasta and val0606.fasta")
     parser.add_argument("--local-training-root", type=Path, default=DEFAULT_LOCAL_TRAINING)
     parser.add_argument("--outside-root", type=Path, default=DEFAULT_OUTSIDE)
     parser.add_argument("--fm-root", type=Path, default=DEFAULT_FM)

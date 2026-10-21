@@ -17,11 +17,11 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from test_relative_paths import main as relative_path_checks
 
-from invarna.data.fixed_frame import align_and_pad
-from invarna.distillation.tdc import construct_labels
-from invarna.evaluation.multi_species import summarize
-from invarna.interpretability.routing import capture_forward_routing, summarize_routing
-from invarna.synthetic.matched_random import mutate_matched
+from rnavolve.data.fixed_frame import align_and_pad
+from rnavolve.distillation.tdc import construct_labels
+from rnavolve.evaluation.multi_species import summarize
+from rnavolve.interpretability.routing import capture_forward_routing, summarize_routing
+from rnavolve.synthetic.matched_random import mutate_matched
 
 
 def _sha256(path):
@@ -142,8 +142,8 @@ def core_checks():
 
 
 def model_checks(device):
-    from invarna.evaluation.inference_api import InvaRNAPredictor
-    predictor = InvaRNAPredictor("final_tdc", device=device)
+    from rnavolve.evaluation.inference_api import RNAvolvePredictor
+    predictor = RNAvolvePredictor("final_tdc", device=device)
     sequence = "ACGTACGTACGT" + "ATG" + "GCC" * 20 + "TAA" + "ACGT" * 10
     prediction, routing = capture_forward_routing(
         predictor.model,

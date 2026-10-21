@@ -2,7 +2,7 @@
 
 This directory is the reviewer-facing entry for 274-species preprocessing and
 self-supervised Mamba–Motif-MoE pretraining. The import-compatible implementation is
-under `src/invarna/`; these modules expose it without duplicating the algorithm.
+under `src/rnavolve/`; these modules expose it without duplicating the algorithm.
 
 ```bash
 python backbone/pretrain.py --config backbone/configs/mamba_motif_moe.yaml \

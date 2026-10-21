@@ -13,7 +13,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from invarna.interpretability.feature_shuffle import iqr_filter_element_scores, summarize_element_scores
+from rnavolve.interpretability.feature_shuffle import iqr_filter_element_scores, summarize_element_scores
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -53,10 +53,10 @@ def main() -> int:
     mean_delta = float(np.max(np.abs(merged["Mean_Z_saved"] - merged["Mean_Z_recomputed"])))
     n_equal = bool((merged["N_saved"] == merged["N_recomputed"]).all())
 
-    candidate = pd.read_csv(DATA / "dorf_moe_summary_InvaRNA0412.csv")
+    candidate = pd.read_csv(DATA / "dorf_moe_summary_RNAvolve0412.csv")
     z_recomputed = (candidate["real_prob"] - candidate["bg_mean"]) / candidate["bg_std"]
     candidate_z_delta = float(np.max(np.abs(z_recomputed - candidate["z_score"])))
-    genome = pd.read_csv(DATA / "dorf_zscore_genome_wide_InvaRNA0412.csv")
+    genome = pd.read_csv(DATA / "dorf_zscore_genome_wide_RNAvolve0412.csv")
     orfs = pd.read_csv(DATA / "dorf_orfs.csv")
 
     checks = {

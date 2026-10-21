@@ -2,7 +2,7 @@
 统一 TE 推理调度器
 ==================
 对 llm_models/inference/ 下的第三方 TE 预测模型提供统一调用入口。
-改编自 agent2/predict_all_models.py, 去掉了 Ouroboros (老版 InvaRNA)。
+改编自 agent2/predict_all_models.py, 去掉了 Ouroboros (老版 RNAvolve)。
 
 支持的模型 (models=[...]):
   ribonn   RiboNN   (utr5+cds+utr3, 需要 conda 环境 'mamballm')   inference/ribonn

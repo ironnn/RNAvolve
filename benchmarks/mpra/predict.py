@@ -47,14 +47,14 @@ def output_frame(frame: pd.DataFrame, predictions: list[float], column: str, out
     print(f"Saved {output} ({len(result)} rows)")
 
 
-def predict_invarna(frame: pd.DataFrame, device: torch.device, batch_size: int) -> list[float]:
+def predict_rnavolve(frame: pd.DataFrame, device: torch.device, batch_size: int) -> list[float]:
     sys.path.insert(0, str(ROOT / "src"))
-    from invarna.evaluation.human_te import load_stage2, run_invarna_inference
+    from rnavolve.evaluation.human_te import load_stage2, run_rnavolve_inference
 
     model = load_stage2("final_tdc", device)
-    result = run_invarna_inference(
+    result = run_rnavolve_inference(
         model, frame, rank=0, world_size=1, device=device,
-        batch_size=batch_size, phase="FIG3G_INVARNA",
+        batch_size=batch_size, phase="FIG3G_RNAVOLVE",
     )
     return result["_pred"].tolist()
 
@@ -128,7 +128,7 @@ def predict_ribonn(frame: pd.DataFrame, batch_size: int) -> list[float]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model", required=True, choices=("invarna", "ribonn", "utrlm"))
+    parser.add_argument("--model", required=True, choices=("rnavolve", "ribonn", "utrlm"))
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--batch-size", type=int, default=32)
@@ -142,8 +142,8 @@ def main() -> None:
             parser.error("--limit must be positive")
         frame = frame.head(args.limit).copy()
     device = torch.device(args.device)
-    if args.model == "invarna":
-        predictions = predict_invarna(frame, device, args.batch_size)
+    if args.model == "rnavolve":
+        predictions = predict_rnavolve(frame, device, args.batch_size)
         column = "pred_final_tdc"
     elif args.model == "utrlm":
         predictions = predict_utrlm(frame, device, args.batch_size)

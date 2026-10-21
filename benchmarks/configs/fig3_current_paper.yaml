@@ -3,19 +3,19 @@ figure_data: assets/manuscript_figures/full/fig3_current_nm
 panel_b:
   input: F3B_three_model_predictions_merged.csv
   source_predictions:
-    InvaRNA0412: F3B_pred_invarna0412.csv
+    RNAvolve0412: F3B_pred_rnavolve0412.csv
     RiboNN: F3B_pred_ribonn.csv
     UTR-LM: F3B_pred_utrlm.csv
   truth_column: true_te
   prediction_columns:
-    InvaRNA0412: pred_invarna0412
+    RNAvolve0412: pred_rnavolve0412
     RiboNN: pred_ribonn
     UTR-LM: pred_utrlm
   displayed_species: [H.sapiens, M.musculus, R.norvegicus, D.rerio, C.elegans]
   excluded_diagnostic_species: [D.melanogaster]
   metric: spearman
   expected:
-    InvaRNA0412:
+    RNAvolve0412:
       H.sapiens: 0.4899151912055547
       M.musculus: 0.41635864828030145
       R.norvegicus: 0.5876806253590225
@@ -40,14 +40,14 @@ panel_f:
   expected_top_models:
     RiboNN: 0.6164582193177239
     Evo2: 0.7303000306442183
-    InvaRNA: 0.7508
+    RNAvolve: 0.7508
 
 panel_g:
   config: benchmarks/configs/fig3_panel_g.yaml
   expected_mean_spearman:
     UTR-LM: 0.08553880569210122
     RiboNN: 0.2596562194968213
-    InvaRNA: 0.35321597527854875
+    RNAvolve: 0.35321597527854875
 
 validation:
   metric_tolerance: 1.0e-12

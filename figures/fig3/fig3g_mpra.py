@@ -46,7 +46,7 @@ def verify_hashes(config: dict) -> None:
     sources = {
         "panel_3k": config["input"]["panel_3k"],
         "original_100k_per_library": config["input"]["original_100k_per_library"],
-        "InvaRNA": config["models"]["InvaRNA"]["prediction_file"],
+        "RNAvolve": config["models"]["RNAvolve"]["prediction_file"],
         "RiboNN": config["models"]["RiboNN"]["prediction_file"],
         "UTRLM": config["models"]["UTRLM"]["prediction_file"],
     }
@@ -62,7 +62,7 @@ def verify_hashes(config: dict) -> None:
 
 def load_predictions(config: dict, overrides: dict[str, Path | None]) -> dict[str, pd.DataFrame]:
     frames = {}
-    for model in ("InvaRNA", "RiboNN", "UTRLM"):
+    for model in ("RNAvolve", "RiboNN", "UTRLM"):
         path = overrides[model] or resolved(config["models"][model]["prediction_file"])
         frame = pd.read_csv(path)
         # The July 17 submission used the preserved 100k/library RiboNN and
@@ -85,9 +85,9 @@ def load_predictions(config: dict, overrides: dict[str, Path | None]) -> dict[st
 def calculate(config: dict, frames: dict[str, pd.DataFrame]) -> pd.DataFrame:
     group = config["input"]["group_column"]
     truth = config["input"]["truth_column"]
-    libraries = sorted(frames["InvaRNA"][group].unique())
+    libraries = sorted(frames["RNAvolve"][group].unique())
     rows = []
-    for model in ("InvaRNA", "RiboNN", "UTRLM"):
+    for model in ("RNAvolve", "RiboNN", "UTRLM"):
         frame = frames[model]
         prediction = config["models"][model]["prediction_column"]
         for library in libraries:
@@ -111,8 +111,8 @@ def check_expected(config: dict, summary: pd.DataFrame, tolerance: float = 1e-12
 
 
 def plot(summary: pd.DataFrame, output: Path) -> None:
-    order = ["UTRLM", "RiboNN", "InvaRNA"]
-    palette = {"UTRLM": "#D1D5DB", "RiboNN": "#9CA3AF", "InvaRNA": "#DC2626"}
+    order = ["UTRLM", "RiboNN", "RNAvolve"]
+    palette = {"UTRLM": "#D1D5DB", "RiboNN": "#9CA3AF", "RNAvolve": "#DC2626"}
     values = summary.set_index("model").loc[order]
     x = np.arange(len(order))
 
@@ -155,7 +155,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--output-dir", type=Path, default=ROOT / "results/fig3_panel_g")
-    parser.add_argument("--invarna-predictions", type=Path)
+    parser.add_argument("--rnavolve-predictions", type=Path)
     parser.add_argument("--ribonn-predictions", type=Path)
     parser.add_argument("--utrlm-predictions", type=Path)
     parser.add_argument("--skip-hash-check", action="store_true")
@@ -164,7 +164,7 @@ def main() -> None:
 
     config = yaml.safe_load(args.config.read_text())
     overrides = {
-        "InvaRNA": args.invarna_predictions,
+        "RNAvolve": args.rnavolve_predictions,
         "RiboNN": args.ribonn_predictions,
         "UTRLM": args.utrlm_predictions,
     }

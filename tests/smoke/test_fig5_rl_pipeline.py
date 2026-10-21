@@ -24,7 +24,7 @@ SOURCE = ROOT / "figures/fig5/design/source"
 DEFAULT_CONFIG = ROOT / "figures/fig5/design/configs/fig5_rl_smoke.yaml"
 sys.path.insert(0, str(ROOT / "src"))
 
-from invarna.design.reward import primary_reward, robust_te_reward
+from rnavolve.design.reward import primary_reward, robust_te_reward
 
 
 def load_copied_implementation():

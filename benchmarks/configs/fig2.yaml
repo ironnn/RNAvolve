@@ -50,7 +50,7 @@ f2b:
   primary_metric: test_r2
   test_labels_used_for_selection: false
   same_probe_parameters_within_task: true
-  invarna_test_r2:
+  rnavolve_test_r2:
     mean_ribosome_load: 0.375840
     mrna_half_life: 0.388470
     expression_level: 0.578375

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from invarna.distillation.tdc import construct_labels
+from rnavolve.distillation.tdc import construct_labels
 
 
 def test_k80_is_anchored_but_flow_matching_and_matched_random_are_absolute() -> None:

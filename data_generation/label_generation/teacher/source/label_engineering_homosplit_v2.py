@@ -25,10 +25,10 @@ with open(cfg_path) as f:
     CFG = yaml.safe_load(f)
 
 N_WORKERS = CFG["n_workers"]
-INVARNA = CFG["invarna_root"]
-INVARNA_LOCAL = os.path.join(os.path.dirname(ROOT_DIR), "InvaRNA")
-VAL_PATH = os.path.join(INVARNA_LOCAL, "data/train/val_lite.parquet")
-TEST_PATH = os.path.join(INVARNA_LOCAL, "data/train/test_lite.parquet")
+RNAVOLVE = CFG["rnavolve_root"]
+RNAVOLVE_LOCAL = os.path.join(os.path.dirname(ROOT_DIR), "RNAvolve")
+VAL_PATH = os.path.join(RNAVOLVE_LOCAL, "data/train/val_lite.parquet")
+TEST_PATH = os.path.join(RNAVOLVE_LOCAL, "data/train/test_lite.parquet")
 RBH_H2M = os.path.join(ROOT_DIR, "assets", "rbh_human_to_mouse.parquet")
 
 

@@ -1,9 +1,9 @@
 # Checkpoints
 
-Git tracks exactly seven individually compressed InvaRNA-native weights under
-this directory. A checkout contains all seven `.zst` files (500,739,484 bytes,
+Git tracks exactly seven individually compressed RNAvolve-native weights under
+this directory. A checkout contains all seven `.zst` files (500,734,116 bytes,
 477.54 MiB); decompressing them creates seven ignored runtime files
-(583,471,695 bytes, 556.44 MiB). No separate checkpoint site or package is
+(583,397,062 bytes, 556.37 MiB). No separate checkpoint site or package is
 needed. The public Fig. 2--5 redraws use frozen numeric source tables and do
 not load weights.
 
@@ -20,8 +20,12 @@ and its metadata are released. Stage-2 TE/HL checkpoints are self-contained and 
 not separately load the backbone weight file.
 
 The w0/w1/w2 names map
-to the former `wt`/`world_new`/`world_new07522` files; their contents and checksums
-are unchanged. The public model keys are also `w0`, `w1`, and `w2`.
+to the former `wt`/`world_new`/`world_new07522` files. The public model keys are
+also `w0`, `w1`, and `w2`. Six neural artifacts were reserialized with native
+RNAvolve pickle/configuration names and backbone keys. Every tensor was verified
+identical; file checksums changed. The teacher artifact already had no prior-brand
+fields, so its bytes remain unchanged. `NATIVE_MIGRATION.json` records before/after
+hashes and tensor fingerprints. Original files are backed up outside this checkout.
 
 From the repository root, verify the compressed files, decompress them, then
 verify the exact runtime bytes (requires `zstd`):
@@ -36,7 +40,7 @@ python tests/smoke/test_pipeline.py --device cuda:0
 
 For example, `te_student/w0.ckpt.zst` becomes `te_student/w0.ckpt` in place.
 The uncompressed files are ignored by Git. To keep them elsewhere, decompress
-the same directory tree there and set `INVARNA_CHECKPOINT_ROOT` to that tree.
+the same directory tree there and set `RNAVOLVE_CHECKPOINT_ROOT` to that tree.
 
 `COMPRESSED_SHA256SUMS` lists only the seven tracked archives;
 `REQUIRED_SHA256SUMS` lists the corresponding seven uncompressed files.

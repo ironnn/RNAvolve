@@ -40,7 +40,7 @@ does not include unapproved baseline rows or their model artifacts.
 
 CodonBERT was omitted only from mean ribosome load because that benchmark contains
 bare 5-prime-UTR fragments and no CDS for a codon representation. The old MPRA README
-value for InvaRNA (`R2=0.286`) is superseded by the finalized source table value
+value for RNAvolve (`R2=0.286`) is superseded by the finalized source table value
 (`R2=0.375840`, Spearman `0.566700`).
 
 No training or experimental-screening feedback is used by these plotting tables.
