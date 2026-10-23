@@ -24,7 +24,9 @@ Provenance: Ext. 1 tables are copied without numerical modification from
 `final_figures/sup/s1/data/panel_*.csv`; Ext. 3 tables likewise from
 `final_figures/sup/s3/data/panel_*.csv`. Ext. 2 tables are extracted from
 `final_figures/sup/s2/results/beacon_results.csv`, using the **test** split,
-excluding 3UTRBERT (not plotted), and retaining the published bar order. For
+excluding 3UTRBERT (not plotted), and retaining the published bar order among the
+baselines included in this release. The released comparison roster supersedes the
+historical figure; retained values are unchanged. For
 Ext. 2C, each value is the arithmetic mean of the three test Spearman values
 for `t0`, `t1`, and `t2`. The original source files remain outside this repository.
 

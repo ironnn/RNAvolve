@@ -51,12 +51,12 @@ run for example:
 
 ```bash
 python external_models/inference/evaluate_te_checkpoint.py \
-  --model evo2_8k \
-  --output outputs/evo2_8k_human_test.csv
+  --model codonbert \
+  --output outputs/codonbert_human_test.csv
 ```
 
 The common configuration records each sequence region, maximum context, selected
-checkpoint, and expected result. The current 2026-08-05 `nm.pdf` uses `evo2_8k`.
+checkpoint, and expected result for the baselines included in this release.
 
 The 1,115-row human WT validation and test splits themselves are included in the
 GitHub checkout at `assets/benchmark_data/human_te/human_val_wt.parquet` and

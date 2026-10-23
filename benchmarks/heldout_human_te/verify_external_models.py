@@ -41,7 +41,6 @@ def main() -> None:
     expected = {
         "codonbert": 0.5171,
         "dnabert2": 0.5371,
-        "evo2_8k": 0.7303000306442183,
         "lucaone": 0.4552,
         "mrnabert": 0.3113,
         "orthrus": 0.5635,

@@ -8,8 +8,7 @@ target: mean_te
 selection_rule: highest_validation_r2
 metric: sklearn.metrics.r2_score
 
-# These values and paths are copied from the selected completed runs. The current
-# 2026-08-05 nm.pdf uses Evo2-8k.
+# These values and paths are copied from the selected completed runs.
 models:
   codonbert:
     region: cds
@@ -22,13 +21,6 @@ models:
     checkpoint: assets/checkpoints/external/te_finetuned/dnabert2/best.ckpt
     test_r2: 0.5371
     historical_comparison: true
-  evo2_8k:
-    region: mrna_5prime
-    max_len: 8000
-    checkpoint: assets/checkpoints/external/te_finetuned/evo2_8k/best.pt
-    validation_r2: 0.7516953211040995
-    test_r2: 0.7303000306442183
-    manuscript_comparison: true
   lucaone:
     region: mrna_5prime
     max_len: 1280

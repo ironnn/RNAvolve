@@ -11,7 +11,6 @@ base-encoder + the single SharedSeqClsHead (unified/shared_head.py). The whole t
 Run with the conda env that matches the backbone (see README / unified/backbones.py):
   rnafm -> threeutrlm_env             codonbert,dnabert2 -> agent2
   mrnabert -> mrnabert_env           lucaone -> lucaone        orthrus -> caduceus_env
-  (evo2 is embedding-only here; full-FT is a separate ZeRO-3 track.)
 
 Examples:
   # smoke (built-in toy regression data):

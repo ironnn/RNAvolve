@@ -23,7 +23,6 @@ MIT license unless an individual file says otherwise.
 | Orthrus | MIT, with the upstream copyright notice retained. | `external_models/Orthrus/LICENSE.md` |
 | RNA-FM | The copied artifact is the MultiMolecule adaptation, whose model card declares AGPL-3.0 and whose License FAQ applies to its distributed weights. The original RNA-FM repository's MIT license does not replace the copied adaptation's declared terms. | `external_models/RNA_FM/license.md`, `license-faq.md`, and the model card |
 | UTR-LM | GPL-3.0. | `external_models/UTR_LM/LICENSE` |
-| Evo 2 | Apache-2.0; upstream NOTICE and AUTHORS are also retained. The archived Evo2 checkpoint is identified by its exact Hugging Face source. | `external_models/Evo2/LICENSE`, `NOTICE`, and `AUTHORS` |
 | LucaOne | The copied source package follows the official repository's Apache-2.0 license. The exact `LucaOne-gene-step36.8M` Hugging Face artifact separately declares MIT in its model card and publishes no standalone license file; this distinction is preserved rather than silently choosing one license for both artifacts. | `external_models/LucaOne/source/LICENSE` and checkpoint `LICENSE_SOURCE.md` |
 | mRNABERT | Apache-2.0, as declared by the exact model card and official repository. | `external_models/mRNABERT/LICENSE` and the model card |
 | RiboNN | Separate Sanofi academic-research/non-commercial notices govern the software and model weights. Neither is relicensed as MIT. | `external_models/RiboNN/RiboNN-1.0.0/LICENSE` and `MODEL WEIGHTS LICENSE.txt` |
@@ -70,7 +69,6 @@ notices alongside those weights.
 - Orthrus: https://github.com/bowang-lab/Orthrus
 - RNA-FM MultiMolecule artifact: https://huggingface.co/multimolecule/rnafm
 - UTR-LM: https://github.com/a96123155/UTR-LM
-- Evo 2 source and checkpoint: https://github.com/ArcInstitute/evo2 and https://huggingface.co/arcinstitute/evo2_7b
 - LucaOne source and exact checkpoint: https://github.com/LucaOne/LucaOne and https://huggingface.co/LucaGroup/LucaOne-gene-step36.8M
 - mRNABERT exact checkpoint: https://huggingface.co/YYLY66/mRNABERT
 - RiboNN: https://github.com/Sanofi-Public/RiboNN

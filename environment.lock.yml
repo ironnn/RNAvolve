@@ -269,7 +269,6 @@ dependencies:
       - docstring-parser==0.17.0
       - einops==0.8.1
       - et-xmlfile==2.0.0
-      - evo2==0.5.3
       - fastapi==0.135.2
       - filelock==3.20.0
       - fire==0.7.1

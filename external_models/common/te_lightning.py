@@ -1,6 +1,6 @@
 """
 Shared PyTorch-Lightning core for TE full-parameter fine-tuning of the unified
-backbones (everything except evo2, which uses sft/train_te_evo2.py).
+backbones.
 
 Follows RNAvolve/train/finetune_stage2.py conventions:
   - label = mean_te (regression), loss = MSELoss
@@ -14,7 +14,7 @@ Follows RNAvolve/train/finetune_stage2.py conventions:
 Head policy (unchanged): native regression head when the backbone ships one
 (codonbert/rnafm/dnabert2/mrnabert/lucaone), else the shared head (orthrus).
 We reuse unified.model.build_finetune_model so the model is identical to the
-single-GPU / evo2 path — only the training harness differs.
+single-GPU path — only the training harness differs.
 """
 import os
 import csv

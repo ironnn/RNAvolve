@@ -38,10 +38,8 @@ panel_b:
 
 panel_f:
   input: F3F_heldout_human_TE_prediction_R2.csv
-  evo2_run: evo2_8k
   expected_top_models:
     RiboNN: 0.6164582193177239
-    Evo2: 0.7303000306442183
     RNAvolve: 0.7508
 
 panel_g:

@@ -4,9 +4,9 @@ backbone_checkpoint: assets/checkpoints/backbone/pretrained_step13500.pt
 expected_rows:
   umap: 7000
   centroids: 21
-  mrl: 7
-  half_life: 8
-  expression: 8
+  mrl: 6
+  half_life: 7
+  expression: 7
   routing: 8000
   regions: 8
   manifest: 24
@@ -59,7 +59,6 @@ f2b:
     exclude_codonbert_mrl_reason: >-
       MeanRibosomeLoading inputs are bare 5-prime-UTR fragments and contain no CDS
       from which a codon representation can be constructed.
-    use_evo2_8k_for_half_life_and_expression: true
   probe_common:
     objective: regression
     metric: rmse

@@ -1,7 +1,9 @@
 # Figure 2 computational source data
 
-These compact tables are direct copies of the finalized Figure 2 plotting data and
-are tracked in the GitHub repository. `SHA256SUMS` records their byte identity.
+These compact tables retain the finalized Figure 2 plotting values for the model
+comparisons included in this release and are tracked in Git. The current comparison
+roster supersedes the historical panel; retained values are unchanged.
+`SHA256SUMS` records the released files' byte identity.
 The primary entry point is:
 
 ```bash

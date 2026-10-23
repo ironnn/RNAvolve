@@ -6,8 +6,9 @@ Canonical manuscript: `final_paper0806/final_paper/nm.pdf`, created 2026-08-05.
 - B uses the completed 2026-07-04 `RNAvolve0412`/RiboNN/UTR-LM rerun. The current
   manuscript displays five species and excludes the Drosophila diagnostic; only the
   five-species display table consumed by the redraw is retained here.
-- F uses Evo2-8k (`R2=0.7303000306442183`) and the plotted final RNAvolve value
-  (`R2=0.7508`), matching `nm.pdf` and its Supplementary Note 6 table.
+- F contains the baselines included in this release and the plotted final
+  RNAvolve value (`R2=0.7508`). Retained values are unchanged; the released
+  comparison roster supersedes the historical manuscript table.
 - G retains the exact ten-batch values UTR-LM/RiboNN/RNAvolve =
   0.085538806/0.259656219/0.353215975.
 

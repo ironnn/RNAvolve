@@ -1,6 +1,5 @@
 model,Model,test_r2,is_rnavolve_backbone,plot_color
 rnavolve,RNAvolve backbone,0.578375,True,#E64B35
-evo2_8k,Evo2,0.548622,False,#808183
 lucaone,LucaOne,0.504504,False,#808183
 orthrus,Orthrus,0.499067,False,#808183
 codonbert,CodonBERT,0.497927,False,#808183

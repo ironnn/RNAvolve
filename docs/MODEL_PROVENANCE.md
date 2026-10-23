@@ -119,20 +119,19 @@ Two method/provenance observations are intentionally not “fixed” in the revi
 
 ## External benchmark models
 
-Code for CodonBERT, DNABERT-2, Evo2, LucaOne, mRNABERT, Orthrus, RiboNN, RNA-FM, and
+Code for CodonBERT, DNABERT-2, LucaOne, mRNABERT, Orthrus, RiboNN, RNA-FM, and
 UTR-LM is under `external_models/`. External weights are deliberately not
 included in the publication asset archive. Their source, version/revision, license,
 and per-file SHA-256 records are in `external_models/DOWNLOADS.tsv` and
 `external_models/CHECKSUMS.tsv`. `benchmarks/configs/external_llm_te.yaml` records
-the selected checkpoint names and context lengths. The current 2026-08-05 `nm.pdf`
-uses Evo2-8k.
+the selected checkpoint names and context lengths for this release.
 
 Presence is not redistribution permission. The external model files are therefore
 download-on-demand only, and restricted CodonBERT/RiboNN artifacts are not part of
 the public asset deposit. The saved external-model prediction tables are sufficient
 for the manuscript figures.
 
-Selected fine-tuned runs are: `codonbert`, `dnabert2`, `evo2_8k`, `lucaone`,
+Selected fine-tuned runs are: `codonbert`, `dnabert2`, `lucaone`,
 `mrnabert`, `orthrus`, `ribonn`, `rnafm`, `utrlm`,
 and the `rnavolve_human_mouse` common-split control. These names identify the records
 in `external_models/DOWNLOADS.tsv`; they do not imply that weights are redistributed.

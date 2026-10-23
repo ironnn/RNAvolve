@@ -13,7 +13,6 @@ fig3_ablation:
 fig3_heldout_human:
   RNAvolve: 0.751
   RiboNN: 0.617
-  Evo2: 0.730
 fig3_mpra_mean_spearman:
   RNAvolve: 0.353
   RiboNN: 0.260

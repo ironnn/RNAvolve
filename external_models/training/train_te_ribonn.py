@@ -14,7 +14,7 @@ RiboNN is a Saluki-style 1-D CNN (not a transformer):
   - fold0 head outputs 78 cell-line TEs; we replace the final Linear 64->78 with
     64->1 (re-init) to regress the single mean_te, keeping all pretrained conv weights.
 
-Records follow sft/train_te_evo2.py:
+Output records:
   per-epoch val+test -> sklearn r2_score -> {save_dir}/{split}_ep{N}_r2_{r2}.csv,
   metrics.csv, best-by-val-R2 best.pt.
 

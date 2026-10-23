@@ -31,7 +31,7 @@ jobs:
           python tests/test_relative_paths.py
       - name: Unit and core smoke checks
         run: |
-          python -m pytest -q tests/test_tdc.py tests/test_rl_checkpoint_registry.py tests/test_renaming.py
+          python -m pytest -q tests/test_tdc.py tests/test_rl_checkpoint_registry.py tests/test_renaming.py tests/test_public_baselines.py
           python tests/smoke/test_pipeline.py --core-only
       - name: Gene-disjoint split and synthetic-anchor checks
         run: |

@@ -26,7 +26,7 @@ COMMON_MODELS = {
     "orthrus": ("train_te_orthrus.py", 1024),
     "rnafm": ("train_te_rnafm.py", 1024),
 }
-ALL_MODELS = list(COMMON_MODELS) + ["evo2_8k", "ribonn", "utrlm"]
+ALL_MODELS = list(COMMON_MODELS) + ["ribonn", "utrlm"]
 
 
 def load_training_module(filename: str):
@@ -69,19 +69,6 @@ def predict_common(model_key: str, checkpoint: Path, test_path: Path, batch_size
             batch = {key: value.to(device) for key, value in batch.items()}
             predictions.extend(model.forward(batch).reshape(-1).float().cpu().tolist())
     return predictions, targets.tolist()
-
-
-def predict_evo2(model_key: str, checkpoint: Path, test_path: Path):
-    import torch
-
-    training = load_training_module("train_te_evo2.py")
-    from external_models.common.evo2_ft import Evo2ForSeqCls
-
-    sequences, targets = training.load_split(str(test_path), 8000)
-    model = Evo2ForSeqCls(num_labels=1, task_type="regression", pooling="mean")
-    model.load_state_dict(torch.load(checkpoint, map_location="cpu", weights_only=False))
-    predictions = training.predict(model, sequences, max_len)
-    return predictions.tolist(), targets.tolist()
 
 
 def predict_ribonn(checkpoint: Path, test_path: Path, batch_size: int):
@@ -150,13 +137,11 @@ def main() -> None:
     args = parser.parse_args()
 
     default_checkpoint = ROOT / "assets/checkpoints/te_finetuned" / args.model / (
-        "best.pt" if args.model.startswith("evo2") or args.model == "ribonn" else "best.ckpt"
+        "best.pt" if args.model == "ribonn" else "best.ckpt"
     )
     checkpoint = args.checkpoint or default_checkpoint
     if args.model in COMMON_MODELS:
         predictions, targets = predict_common(args.model, checkpoint, args.test_data, args.batch_size)
-    elif args.model.startswith("evo2"):
-        predictions, targets = predict_evo2(args.model, checkpoint, args.test_data)
     elif args.model == "ribonn":
         predictions, targets = predict_ribonn(checkpoint, args.test_data, args.batch_size)
     else:

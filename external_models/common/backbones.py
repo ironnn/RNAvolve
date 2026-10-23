@@ -23,7 +23,6 @@ Per-backbone conda env (see README):
   mrnabert         -> mrnabert_env
   lucaone          -> lucaone
   orthrus          -> caduceus_env         (mamba_ssm)
-  evo2             -> mamballm/lucaone      (vortex)  [embedding only for now]
   rnavolve          -> mamballm              (RNAvolve Caduceus; embedding only)
 """
 import os
@@ -295,53 +294,6 @@ def _orthrus_forward(backbone, inputs):
     return backbone(inputs["x"], channel_last=True)
 
 
-# ───────────────────────────── evo2 (non-HF, embedding only) ─────────────────
-EVO2_EMBED_LAYER = "blocks.28.mlp.l3"  # mid-network layer for 7B embeddings (per evo2 README)
-_EVO2_CACHE = {}
-
-
-def _evo2_load(model_dir):
-    def _f(device="cuda:0", dtype=None):
-        sys.path.insert(0, str(Path(model_dir)))
-        from evo2.models import Evo2
-        ckpt = os.path.join(model_dir, "evo2_7b.pt")
-        ev = Evo2(model_name="evo2_7b", local_path=ckpt)
-        _EVO2_CACHE["model"] = ev  # so the tokenizer fn can reuse it
-        return ev  # wrapper, not nn.Module; embedding-only
-    return _f
-
-
-def _evo2_tok(model_dir):
-    def _f():
-        # tokenizer is owned by the Evo2 wrapper; reuse the loaded instance if present
-        ev = _EVO2_CACHE.get("model")
-        if ev is not None:
-            return ev.tokenizer
-        sys.path.insert(0, str(Path(model_dir)))
-        from vortex.model.tokenizer import CharLevelTokenizer
-        return CharLevelTokenizer(512)
-    return _f
-
-
-def _evo2_encode(tokenizer, seqs, max_len):
-    ids = []
-    for s in seqs:
-        s = str(s).upper().replace("U", "T")[:max_len]
-        toks = [int(x) for x in tokenizer.tokenize(s)]
-        ids.append(torch.tensor(toks, dtype=torch.long))
-    maxlen = max(len(t) for t in ids)
-    pad_id = int(getattr(tokenizer, "pad_id", 1))
-    rows = [torch.nn.functional.pad(t, (0, maxlen - len(t)), value=pad_id) for t in ids]
-    return {"input_ids": torch.stack(rows)}
-
-
-def _evo2_forward(backbone, inputs):
-    # Evo2.forward returns (logits, embeddings_dict) when return_embeddings=True
-    _, emb = backbone.forward(inputs["input_ids"], return_embeddings=True,
-                              layer_names=[EVO2_EMBED_LAYER])
-    return emb[EVO2_EMBED_LAYER]  # (B, L, H)
-
-
 # ───────────────────────────── RNAvolve (non-HF Caduceus/Mamba) ───────────────
 def _rnavolve_paths(rnavolve_root):
     """Idempotently put repo root (for `import src.utils`) and src/ (for
@@ -456,15 +408,6 @@ def _spec_orthrus():
                         notes="non-HF Mamba; 6-track one-hot; full-FT uses SharedSeqClsHead")
 
 
-def _spec_evo2():
-    d = str(MODEL_ROOT / "evo2-main")
-    return BackboneSpec("evo2", d, 4096, "mamballm", "dna",
-                        _evo2_load(d), _evo2_tok(d), _evo2_encode, _evo2_forward,
-                        supports_full_ft=False, head_mode="shared",
-                        notes="non-HF StripedHyena; embedding via run_embedding.py; "
-                              "full-FT via sft/finetune_evo2.py (custom loop, vortex 7-GPU shard, NOT finetune_unified.py)")
-
-
 def _spec_rnavolve():
     d = RNAVOLVE_ROOT
     return BackboneSpec("rnavolve", d, 512, "mamballm", "rna",
@@ -482,12 +425,11 @@ _BUILDERS = {
     "mrnabert": _spec_mrnabert,
     "lucaone": _spec_lucaone,
     "orthrus": _spec_orthrus,
-    "evo2": _spec_evo2,
     "rnavolve": _spec_rnavolve,
 }
 
 ALL_KEYS = list(_BUILDERS.keys())
-FULL_FT_KEYS = [k for k in ALL_KEYS if k not in ("evo2", "rnavolve")]
+FULL_FT_KEYS = [k for k in ALL_KEYS if k != "rnavolve"]
 
 
 def get_spec(key: str) -> BackboneSpec:

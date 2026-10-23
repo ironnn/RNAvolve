@@ -56,15 +56,7 @@ python external_models/inference/evaluate_te_checkpoint.py \
 python external_models/training/train_te_codonbert.py \
   --data_dir assets/training_data/common_te_splits \
   --output_dir outputs/te_codonbert --seed 2222
-
-python external_models/training/train_te_evo2.py \
-  --data_dir assets/training_data/common_te_splits \
-  --max_len 8000 --epochs 10 --grad_accum 16 \
-  --output_dir outputs/te_evo2_8k --seed 2222
 ```
-
-The 2,048-nt Evo2 run produced the value used in the manuscript comparison.  The later
-8,000-nt experiment is retained separately and is not substituted into that table.
 
 `DOWNLOADS.tsv` records the artifact-level source and version information. Where an
 upstream repository or model card did not expose an immutable revision in the recovered
@@ -83,8 +75,3 @@ The checksum table is a record for on-demand downloads, not a request to add tho
 weights to Git or to the publication asset archive. During this packaging update,
 files larger than 1 GB were not rehashed; their SHA-256 values were carried forward
 from the authenticated prior manifest, while sizes and presence were checked.
-
-For the expensive Evo2 inference runs, use `--model evo2_8k`; the command loads the
-selected checkpoint and context length. Evo2
-uses its original single-process, multi-GPU pipeline sharding and must not be launched
-with `torchrun`.

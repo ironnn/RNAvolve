@@ -90,9 +90,6 @@ archive under `assets/manuscript_figures/fig2_compact/`; the backbone checkpoint
 2026-08-05 `nm.pdf` package is canonical; July 17 and May 22 are retained as
 historical-only.
 
-The selected Evo2 full-parameter run is `evo2_8k`: first 8,000 nt, current
-`nm.pdf` comparison, test R2 0.730300.
-
 The manifest records sizes and SHA-256 hashes.  To validate a separately supplied
 bundle, run:
 
@@ -108,7 +105,7 @@ python benchmarks/heldout_human_te/verify_external_models.py
 ```
 
 The large files cannot be included in the anonymous GitHub repository using normal
-Git.  In particular, the Evo2 and LucaOne files exceed GitHub's ordinary file-size
+Git.  In particular, the LucaOne files exceed GitHub's ordinary file-size
 limit and common Git-LFS per-file limits.  The anonymous-review release therefore
 needs a separate checkpoint/data archive whose extracted root is `assets/`.
 That archive must also preserve `docs/THIRD_PARTY_LICENSES.md`, the license inventory, and
